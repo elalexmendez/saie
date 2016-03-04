@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<HTML lang="es">
+	<HEAD>
+		<title>Sistema</title>
+		<meta charset="utf-8">
+		<link type="image/x-icon" href="logo.ico" rel="icon" />
+		<link rel="stylesheet" type="text/css" href="ingresos.css">
+	</HEAD>
+	<BODY>
+	
+		<header>
+			<figure id="aranzazu">
+			<img src="aranzazu.png">
+			</figure>
+			<nav id="menu">	
+				<ul>
+					<a href="inicio.html"><li><img src="images/icono.inicio.png">Inicio</li></a>
+					<a href="#"><li><img src="images/usuario.png">Usuario</li></a>
+					<a href="#"><li><img src="images/configuracion.png">Configuración</li></a>
+					<a href="#"><li><img src="images/acerca.png">Acerca De</li></a>
+				</ul>
+			</nav>
+			<figure id="logo">
+				<img src="logo2.png">
+			</figure>	
+		</header>
+
+			<nav id="sub">
+			<marquee><b>Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amen</b></marquee>
+		</nav>
+<section id="todo">
+			<h1>Sistema Administrativo</h1>
+
+		<aside id="lateral">
+			<ul>
+				<a href="ingresos.html"><li>Ingresos</li></a>
+				<a href="egresos.html"><li>Egresos</li></a>
+				<a href="inventario.html"><li>Inventario</li></a>
+				<a href="consulta.html"><li>Consultas</li></a>
+			</ul>
+		</aside>
+
+		<section>
+		
+		<form>
+			<h3>Formato de Egreso</h3>
+
+			<p><b>Tipo de Egreso:</b></p>
+
+				<input type="radio" name="edad" value="menor"> Dinero
+				<input type="radio" name="edad" value="menor"> Material
+				<input type="radio" name="edad" value="menor"> Alimentos
+				<input type="radio" name="edad" value="menor"> Otros
+
+				<p><b>Para:</b></p>
+
+				<select>
+					<option selected value="0">Elige una Opción</option>
+					<optgroup label="Grupo de Metodos" required>
+					<option value="ofrenda">Familia</option>
+					<option value="donación">Otra Parroquia</option>
+					<option value="bautizos">Empresa</option>
+					<option value="misa">Grupo de Apostolado</option>
+					<option value="misa">Otros</option>
+					</optgroup>
+				</select>	
+
+				<p><b>Descripcíón:</b></p>
+
+					<textarea cols="30" rows="7" name="comentarios" value="descripcion" required></textarea>
+					<div id="botones">
+					<input type="submit">
+					<input type="reset" value="Borrar Información ">
+					</div>
+		</form>
+
+	</section>
+		</section>
+
+		<footer>&copy Iglesia Nuestra Señora del Rosario de Aranzazu</footer>
+	</BODY>
+
+</HTML>
