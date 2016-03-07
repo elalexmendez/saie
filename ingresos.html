@@ -1,92 +1,127 @@
-<!DOCTYPE HTML>
-<HTML lang="es">
-	<HEAD>
-		<title>Ingresos</title>
-		<meta charset="utf-8">
-		<link type="image/x-icon" href="logo.ico" rel="icon" />
-		<link rel="stylesheet" type="text/css" href="ingresos.css">
-	</HEAD>
-	<BODY>
-	
-		<header>
-			<figure id="aranzazu">
-			<img src="aranzazu.png">
-			</figure>
-			<nav id="menu">	
-				<ul>
-					<a href="inicio.html"><li><img src="images/icono.inicio.png">Inicio</li></a>
-					<a href="#"><li><img src="images/usuario.png">Usuario</li></a>
-					<a href="#"><li><img src="images/configuracion.png">Configuración</li></a>
-					<a href="#"><li><img src="images/acerca.png">Acerca De</li></a>
-				</ul>
-			</nav>
-			<figure id="logo">
-				<img src="logo.png">
-			</figure>	
-		</header>
+<!doctype html>
+<html class="no-js" lang="">
 
-			<nav id="sub">
-			<marquee>Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amen</marquee>
-		</nav>
-<section id="todo">
-			<h1>Ingresos Aranzazu</h1>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ingresos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<aside id="lateral">
-			<ul>
-				<a href="ingresos.html"><li>Ingresos</li></a>
-				<a href="egresos.html"><li>Egresos</li></a>
-				<a href="inventario.html"><li>Inventario</li></a>
-				<a href="consulta.html"><li>Consultas</li></a>
-			</ul>
-		</aside>
+    <link rel="icon" href="/assets/favicon.ico">
+    <!-- Place favicon.ico in the root directory -->
 
-		<section>
-				<form>
-			<h3>Formato de Ingreso</h3>
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
 
-			
-			<p><b>Metodo de Ingreso:</b></p>
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="inicio.html">
+                        <img src="/assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="inicio.html"> <i class="fa fa-home"></i> Inicio</a>
+                        </li>
+                        <li>
+                            <a href="ingresos.html"> <i class="fa fa-sign-in"></i> Ingresos</a>
+                        </li>
+                        <li>
+                            <a href="egresos.html"> <i class="fa fa-sign-out"></i> Egresos</a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fa fa-sign-out"></i> Inventario</a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fa fa-search"></i> Consultas</a>
+                        </li>
 
-			<select>
-				<option selected value="0">Elige una Opción</option>
-				<optgroup label="Grupo de Metodos" required>
-				<option value="ofrenda">Ofrenda Dominical</option>
-				<option value="donación">Donación</option>
-				<option value="bautizos">Bautizos</option>
-				<option value="misa">Misa de Difunto</option>
-				</optgroup>
-			</select>
-			
-			<p><b>Donado por:</b></p> 
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Buscar ">
+                        </div>
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                        </li>
+                        <li>
+                            <a href="/"> <i class="fa fa-external-link"></i> Salir</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <marquee><b>Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amen</b></marquee>
 
-				<input type="radio" name="pasa" value="tv">  Persona
-				<input type="radio" name="pasa" value="tv">  Empresa
-				<input type="radio" name="pasa" value="tv">  Grupo de Apostolado
-				<input type="radio" name="pasa" value="tv">  Gobierno
-				<input type="radio" name="pasa" value="tv">  Otros
+        <form>
+            <h3>Control de Ingresos</h3>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nombre de Identificación</label><br>
+            <input type="text" placeholder="Nombre">
+          </div>
+          <div class="form-group">
+            <label>Tipo de Ingreso</label><br>
+            <input type="radio" value="dinero">Dinero
+            <input type="radio" value="alimentos">Alimentos
+            <input type="radio" value="materiales">Materiales
+            <input type="radio" value="otros">Otros
+          </div>
+          <div class="form-group">
+            <label>Donado por</label><br>
+            <input type="radio">Persona
+            <input type="radio">Grupo de Apostolado
+            <input type="radio">Empresa
+            <input type="radio">Otros
+          </div>
+          <div class="form-group">
+            <label>Descripción</label><br>
+            <textarea cols="30" rows="7" name="comentarios" value="descripcion" required></textarea><br>
+          </div>
+          <button type="Submit" class="btn btn-default">Enviar</button>
+                    
+        </form><br>
+        </div>
+    </div>
+    <!-- /container -->
 
-			<p><b>Nombre: </b><input type="texto" placeholder="Nombre"></p>
 
-			<p><b>Tipo de Ingreso</b></p>
+    <footer class="footer">
+        <div class="container">
+            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
+        </div>
+    </footer>
 
-				<input type="radio" name="edad" value="menor"> Dinero
-				<input type="radio" name="edad" value="menor"> Material
-				<input type="radio" name="edad" value="menor"> Alimentos
-				<input type="radio" name="edad" value="menor"> Otros					
+    <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
 
-			<p><b>Descripción:</b></p>
-								<textarea cols="30" rows="7" name="comentarios" value="descripcion" required></textarea>
-								<div id="botones">
-								<input type="submit" value="Aceptar">
-								<input type="reset" value="Borrar Información ">
-								</div>
-		</form>
+    <!-- Script to Activate the Carousel -->
+    <script>
+        $('.carousel').carousel({
+            interval: 5000 //changes the speed
+        })
+    </script>
 
-		</section><br><br>
-		</section><br><br><br>
-
-
-		<footer>&copy Iglesia Nuestra Señora del Rosario de Aranzazu</footer>
-	</BODY>
-
-</HTML>
+</body>
