@@ -20,11 +20,13 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
+
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -88,36 +90,31 @@
         <br>
         <br>
 
-        <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
-                    </div>
-                </div>
-            </div>
-
+        <div>
+            <ul class="pager">
+                <li><a href="dinconsulta.php">Anterior</a></li>
+            </ul>
         </div>
+
+        <div class="col-md-20 text-center" >
+            <h3>Consultas por Fecha de Dinero</h3>
+        </div><br>
+        <div class="row">
+            <div class="col-md-offset-5">
+                <form method="post" class="col-sm-4" action="resultadodinero.php">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Desde:</label>
+                        <input type="text" name="desde" class="form-control" placeholder="AAAA-MM-DD" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hasta</label>
+                        <input type="text" name="hasta" class="form-control" placeholder="AAAA-MM-DD" required autocomplete="off">
+                    </div>
+                    <button type="submit" name="enviar" class="btn btn-default">Consultar</button>
+                </form>
+            </div>
+        </div>
+</div>
 
     </div>
 

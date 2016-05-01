@@ -88,35 +88,55 @@
         <br>
         <br>
 
-        <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
-                    </div>
-                </div>
+        <div>
+            <ul class="pager">
+                <li><a href="fechadinero.php">Anterior</a></li>
+            </ul>
+        </div>
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
-                    </div>
-                </div>
-            </div>
+        <div class="row col-md-8 col-md-offset-2 custyle">
+            <?php
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
-                    </div>
-                </div>
-            </div>
+                include 'ser.php';
+                if (isset($_POST['enviar'])) {
+                    
+                    $fecha = $_POST['desde'];
+                    $fecha = $_POST['hasta'];
+                    /* Realizamos la consulta SQL */
+                    $sql = "SELECT * FROM dinero WHERE fecha BETWEEN  '".$_POST['desde']."' AND '".$_POST['hasta']."'";
+                    $result = mysql_query($sql) or die("Error");
+             
+                        if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
+                             /* Desplegamos cada uno de los registros dentro de una tabla */  
+                            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+
+                            /*Priemro los encabezados*/
+                             echo "<tr>
+                                    <th class='text-center' colspan=5> Resultado de Consulta por Fecha </th>
+                                   <tr>
+                                     <th class='text-center'> ID </th>
+                                     <th class='text-center'> Nombre </th>
+                                     <th class='text-center'> Cantidad </th>
+                                     <th class='text-center'> Descripcion </th>
+                                     <th class='text-center'> Fecha de Ingreso </th>
+                                  </tr>";
+
+                             /*Y ahora todos los registros */
+                             while($row=mysql_fetch_array($result))
+                                {
+                             echo "<tr>
+                                 <td class='text-center' align='right'> $row[id] </td>
+                                 <td class='text-center'> $row[nombre] </td>
+                                 <td class='text-center'> $row[cantidad] Bs. </td>
+                                 <td class='text-center'> $row[mensaje] </td>
+                                 <td class='text-center'> $row[fecha] </td>
+                                 </tr>";
+                             }
+                            echo "</table>";
+
+                 }
+            ?>
         </div>
 
     </div>

@@ -88,31 +88,40 @@
         <br>
         <br>
 
+        <div>
+            <ul class="pager">
+                <li><a href="consultas.php">Anterior</a></li>
+            </ul>
+        </div>
+
         <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
+            <h2 class="col-sm-11">Consultas sobre Dinero</h2>
             <div class="col-sm-4 ">
                 <div class="thumbnail">
                     <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
+                        <p>Consulta por Fecha</p>
+                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
                     </div>
                 </div>
 
             </div>
             <div class="col-sm-4 ">
                 <div class="thumbnail">
-                    <img src="assets/images/materiales.jpg" alt="...">
+                    <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
+                        <p>Consulta sobre total de Dinero</p>
+                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 ">
                 <div class="thumbnail">
-                    <img src="assets/images/alimentos.jpg" alt="...">
+                    <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
+                        <p>Consulta acerca de Historial de Ingresos</p>
+                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
                     </div>
                 </div>
             </div>

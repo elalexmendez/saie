@@ -55,10 +55,10 @@
                         <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
                         </li>
 
@@ -88,35 +88,49 @@
         <br>
         <br>
 
-        <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
-                    </div>
-                </div>
+        <div class="row col-md-10 col-md-offset-1 custyle">
+        <?php
+            /* Abrimos la base de datos */
+              $conx = mysql_connect ("localhost","root","");
+              if (!$conx) die ("Error al abrir la base <br/>". mysql_error()); 
+              mysql_select_db("saie") OR die("Connection Error to Database");    
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
-                    </div>
-                </div>
-            </div>
+            /* Realizamos la consulta SQL */
+            $sql="select * from mteriales";
+            $result= mysql_query($sql) or die(mysql_error());
+            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
-                    </div>
-                </div>
-            </div>
+            /* Desplegamos cada uno de los registros dentro de una tabla */  
+            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
 
+            /*Priemro los encabezados*/
+             echo "<tr>
+                     <th class='text-center' colspan=6> Inventario de Materiales </th>
+                   <tr>
+                     <th class='text-center'> ID </th>
+                     <th class='text-center'> Nombre </th>
+                     <th class='text-center'> Material </th>
+                     <th class='text-center'> Cantidad </th> 
+                     <th class='text-center'> Descripcion </th>
+                     <th class='text-center'> Fecha de Ingreso </th>
+                  </tr>";
+
+            /*Y ahora todos los registros */
+            while($row=mysql_fetch_array($result))
+            {
+             echo "<tr>
+                     <td class='text-center' align='right'> $row[id] </td>
+                     <td class='text-center'> $row[nombre] </td>
+                     <td class='text-center'> $row[material] </td>
+                     <td class='text-center'> $row[cantidad] </td>
+                     <td class='text-center'> $row[descripcion] </td>
+                     <td class='text-center'> $row[fecha] </td>
+                  </tr>";
+            }
+            echo "</table>";
+            
+
+        ?>
         </div>
 
     </div>
@@ -138,6 +152,7 @@
         })
     </script>
 </body>
+
 
 <?php
     }else{

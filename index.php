@@ -17,14 +17,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-    <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.php">
-                        <img src="/assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
+                        <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
@@ -56,7 +56,7 @@
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
                         <li>
-                            <a href="#"> <i class="fa fa-list-alt"></i> Inventario</a>
+                            <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
                         <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
@@ -97,21 +97,21 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <!-- Set the first background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/assets/images/img1.jpg');"></div>
+                    <div class="fill" style="background-image:url('assets/images/img1.jpg');"></div>
 
                 </div>
                 <div class="item">
                     <!-- Set the second background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/assets/images/img2.jpg');"></div>
+                    <div class="fill" style="background-image:url('assets/images/img2.jpg');"></div>
 
                 </div>
                 <div class="item">
                     <!-- Set the third background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/assets/images/img3.jpg');"></div>
+                    <div class="fill" style="background-image:url('assets/images/img3.jpg');"></div>
                 </div>
                 <div class="item">
                     <!-- Set the third background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/assets/images/img4.jpg');"></div>
+                    <div class="fill" style="background-image:url('assets/images/img4.jpg');"></div>
                 </div>
             </div>
 
@@ -138,7 +138,7 @@
                     <div class="caption">
                         <h3>Ingresos</h3>
                         <p>Control de Ingresos de los Recursos y Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="ingresos.html" class="btn btn-primary" role="button">Ir</a>
+                        <p><a href="ingresos.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@
                     <div class="caption">
                         <h3>Egresos</h3>
                         <p>Control de Egreros de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="egresos.html" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="egresos.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                     <div class="caption">
                         <h3>Inventario</h3>
                         <p>Descripción y Verificación de todos los Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="inventario.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                     <div class="caption">
                         <h3>Consulta</h3>
                         <p>Busqueda de lo almacenado en el Sistema de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="consultas.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
@@ -185,9 +185,9 @@
         </div>
     </footer>
 
-    <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>
@@ -203,3 +203,4 @@
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+</html>

@@ -17,15 +17,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-    <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.php">
-                        <img src="/assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
+                        <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
@@ -56,7 +56,7 @@
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
                         <li>
-                            <a href="#"> <i class="fa fa-sign-out"></i> Inventario</a>
+                            <a href="inventario.php"> <i class="fa fa-sign-out"></i> Inventario</a>
                         </li>
                         <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
@@ -118,7 +118,7 @@
                     <div class="caption">
                         <h3>Alimentos</h3>
                         <p>Control de Ingresos de los Alimentos de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
+                        <a class="btn btn-primary" href="alimentos.php" role="button">Alimentos</a> 
                     </div>
                 </div>
             </div>
@@ -135,9 +135,9 @@
         </div>
     </footer>
 
-    <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

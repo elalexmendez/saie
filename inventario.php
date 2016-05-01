@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Inventario</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -55,10 +55,10 @@
                         <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
                         </li>
 
@@ -89,12 +89,12 @@
         <br>
 
         <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
+            <h2 class="col-sm-11">Inventario General</h2>
             <div class="col-sm-4 ">
                 <div class="thumbnail">
                     <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
+                        <a class="btn btn-primary" href="#" role="button">Dinero</a>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                 <div class="thumbnail">
                     <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
+                       <a class="btn btn-primary" href="invmateriales.php" role="button">Materiales</a> 
                     </div>
                 </div>
             </div>
