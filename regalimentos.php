@@ -1,8 +1,6 @@
 <?php
 
-$conexion = mysql_connect("localhost", "root");
-
-mysql_select_db("saie" , $conexion);
+include 'ser.php';
 
 $sql = "INSERT INTO alimentos (nombre, alimento, cantidad, descripcion, fecha) " .
 	"VALUES ('{$_POST['nombre']}' , '{$_POST['alimentos']}' , '{$_POST['cantidad']}' , '{$_POST['descripcion']}' , '".date(" Y-m-d")."') ";

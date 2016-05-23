@@ -87,8 +87,7 @@
 
         <br>
         <br>
-        <br>
-        <br>
+        
         <div>
             <ul class="pager">
                 <li><a href="dinconsulta.php">Anterior</a></li>
@@ -103,7 +102,11 @@
               mysql_select_db("saie") OR die("Connection Error to Database");    
 
             /* Realizamos la consulta SQL */
-            $sql="select * from dinero";
+            $sql="SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , dinero.cantidad , 
+            ingrersos.descripcion , ingrersos.Fecha 
+            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
+            INNER JOIN dinero ON dinero.cantidad = ingrersos.id_dinero 
+            INNER JOIN categorias ON categorias.id = ingrersos.id_categoria";
             $result= mysql_query($sql) or die(mysql_error());
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
@@ -115,22 +118,24 @@
                      <th class='text-center' colspan=6> Datos de Ingresos </th>
 
                    <tr>
-                     <th class='text-center' > ID </th>
                      <th class='text-center'> Nombre </th>
+                     <th class='text-center'> Apellido </th>
+                     <th class='text-center'> Clasificacion </th>
                      <th class='text-center'> Cantidad </th>
                      <th class='text-center'> Descripcion </th>
-                     <th> Fecha de I </th>
+                     <th class='text-center'> Fecha de I </th>
                   </tr>";
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
              echo "<tr>
-                     <td align='right'> $row[id] </td>
-                     <td> $row[nombre] </td>
+                     <td> $row[Nombre] </td>
+                     <td> $row[Apellido] </td>
+                     <td> $row[clasificacion] </td>
                      <td> $row[cantidad] bs. </td>
-                     <td> $row[mensaje] </td>
-                     <td> $row[fecha] </td>
+                     <td width='400'> $row[descripcion] </td>
+                     <td> $row[Fecha] </td>
                   </tr>";
             }
             echo "</table>";

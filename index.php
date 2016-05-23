@@ -25,11 +25,15 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
 </head>
 
 <body>
     <div class="container">
         <!-- Static navbar -->
+
+        
         
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -44,6 +48,7 @@
                         <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
                     </a>
                 </div>
+
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active">
@@ -71,12 +76,19 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
                         </li>
                     </ul>
+                    <br><br>
+                    <?php
+                        include 'ser.php';
+
+                        echo "<br><h5>Usuario: $_SESSION[usuario]</h5>"
+                    ?>
+
                 </div>
                 <!--/.nav-collapse -->
             </div>
@@ -133,7 +145,7 @@
         <div class="row">
             <h2 class="col-sm-11">Sistema Administrativo para el Control de Ingresos y Egresos Aranzazu</h2>
             <div class="col-sm-3 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/img1.jpg" alt="...">
                     <div class="caption">
                         <h3>Ingresos</h3>
@@ -144,18 +156,18 @@
 
             </div>
             <div class="col-sm-3 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/img2.jpg" alt="...">
                     <div class="caption">
                         <h3>Egresos</h3>
-                        <p>Control de Egreros de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
+                        <p>Control de Egreros de los Recursos y Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
                         <p><a href="egresos.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-3 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/img3.jpg" alt="...">
                     <div class="caption">
                         <h3>Inventario</h3>
@@ -166,12 +178,12 @@
             </div>
 
             <div class="col-sm-3 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/img4.jpg" alt="...">
                     <div class="caption">
-                        <h3>Consulta</h3>
-                        <p>Busqueda de lo almacenado en el Sistema de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="consultas.php" class="btn btn-primary" role="button">Ir</a> 
+                        <h3>Nuevo Contribuyente</h3>
+                        <p>Registro de nuevo Contribuyente para hacer un ingreso eficaz y agendarlo en la base de datos</p>
+                        <p><a href="contribuyente.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>

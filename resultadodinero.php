@@ -85,8 +85,7 @@
 
         <br>
         <br>
-        <br>
-        <br>
+        
 
         <div>
             <ul class="pager">
@@ -94,7 +93,7 @@
             </ul>
         </div>
 
-        <div class="row col-md-8 col-md-offset-2 custyle">
+        <div class="row col-md-10 col-md-offset-1 custyle">
             <?php
 
                 include 'ser.php';
@@ -103,20 +102,27 @@
                     $fecha = $_POST['desde'];
                     $fecha = $_POST['hasta'];
                     /* Realizamos la consulta SQL */
-                    $sql = "SELECT * FROM dinero WHERE fecha BETWEEN  '".$_POST['desde']."' AND '".$_POST['hasta']."'";
+                    $sql = "SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , 
+                    dinero.cantidad , ingrersos.descripcion , ingrersos.Fecha 
+                    FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
+                    INNER JOIN dinero ON dinero.cantidad = ingrersos.id_dinero 
+                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria 
+                    WHERE ingrersos.Fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."' "; 
+
                     $result = mysql_query($sql) or die("Error");
              
-                        if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
+                        if(mysql_num_rows($result)==0) die("<script type=\"text/javascript\">alert('No hay ingresos para mostrar'); window.location='fechadinero.php';</script>");
 
                              /* Desplegamos cada uno de los registros dentro de una tabla */  
                             echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
 
                             /*Priemro los encabezados*/
                              echo "<tr>
-                                    <th class='text-center' colspan=5> Resultado de Consulta por Fecha </th>
+                                    <th class='text-center' colspan=6> Resultado de Consulta por Fecha </th>
                                    <tr>
-                                     <th class='text-center'> ID </th>
                                      <th class='text-center'> Nombre </th>
+                                     <th class='text-center'> Apellido </th>
+                                     <th class='text-center'> Clasificacion </th>
                                      <th class='text-center'> Cantidad </th>
                                      <th class='text-center'> Descripcion </th>
                                      <th class='text-center'> Fecha de Ingreso </th>
@@ -126,11 +132,12 @@
                              while($row=mysql_fetch_array($result))
                                 {
                              echo "<tr>
-                                 <td class='text-center' align='right'> $row[id] </td>
-                                 <td class='text-center'> $row[nombre] </td>
+                                 <td class='text-center'> $row[Nombre] </td>
+                                 <td class='text-center'> $row[Apellido] </td>
+                                 <td class='text-center'> $row[clasificacion] </td>
                                  <td class='text-center'> $row[cantidad] Bs. </td>
-                                 <td class='text-center'> $row[mensaje] </td>
-                                 <td class='text-center'> $row[fecha] </td>
+                                 <td width='400' class='text-center'> $row[descripcion] </td>
+                                 <td class='text-center'> $row[Fecha] </td>
                                  </tr>";
                              }
                             echo "</table>";

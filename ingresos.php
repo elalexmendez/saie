@@ -82,7 +82,7 @@
             </div>
             <!--/.container-fluid -->
         </nav>
-        <br><br><br><br>
+        <br><br>
 
         
         
@@ -91,18 +91,18 @@
          <div class="row">
             <h2 class="col-sm-11">Control de Ingresos </h2>
             <div class="col-sm-4 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
                         <h3>Dinero</h3>
-                        <p>Control de Ingresos del Dinero de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
+                        <p>Control de Ingresos de el Dinero de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
                         <a class="btn btn-primary" href="dinero.php" role="button">Dinero</a>
                     </div>
                 </div>
 
             </div>
             <div class="col-sm-4 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
                         <h3>Materiales</h3>
@@ -113,7 +113,7 @@
             </div>
 
             <div class="col-sm-4 ">
-                <div class="thumbnail">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
                         <h3>Alimentos</h3>

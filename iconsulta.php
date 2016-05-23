@@ -20,10 +20,6 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.min.css">
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -92,38 +88,38 @@
 
         <div>
             <ul class="pager">
-                <li><a href="iconsulta.php">Anterior</a></li>
+                <li><a href="consultas.php">Anterior</a></li>
             </ul>
         </div>
 
         <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
+            <h2 class="col-sm-11">Consulta sobre Ingresos</h2>
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
                     <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                        <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
+                        <h3>Dinero</h3>
+                        <p><a href="dinconsulta.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
 
             </div>
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
+                    <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
+                        <h3>Materiales</h3>
+                        <p><a href="#" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
+                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
-                        <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
+                        <h3>Alimentos</h3>
+                        <p><a href="aliconsulta.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>

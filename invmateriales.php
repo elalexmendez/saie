@@ -91,9 +91,7 @@
         <div class="row col-md-10 col-md-offset-1 custyle">
         <?php
             /* Abrimos la base de datos */
-              $conx = mysql_connect ("localhost","root","");
-              if (!$conx) die ("Error al abrir la base <br/>". mysql_error()); 
-              mysql_select_db("saie") OR die("Connection Error to Database");    
+              include 'ser.php';    
 
             /* Realizamos la consulta SQL */
             $sql="select * from mteriales";
@@ -101,30 +99,36 @@
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
             /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+            echo "<table class='table text-center' border=1 cellpadding=4 cellspacing=0>";
 
             /*Priemro los encabezados*/
-             echo "<tr>
-                     <th class='text-center' colspan=6> Inventario de Materiales </th>
-                   <tr>
+             echo " <h2 class='col-sm-11'>Inventario de Materiales</h2>
+
+                    <thead>
                      <th class='text-center'> ID </th>
                      <th class='text-center'> Nombre </th>
                      <th class='text-center'> Material </th>
                      <th class='text-center'> Cantidad </th> 
                      <th class='text-center'> Descripcion </th>
                      <th class='text-center'> Fecha de Ingreso </th>
-                  </tr>";
+                     <th></th>
+                  </tr>
+                  </thead>";
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
-             echo "<tr>
-                     <td class='text-center' align='right'> $row[id] </td>
+             echo "<tr scope='row'>
+                     <td class='text-center'> $row[id] </td>
                      <td class='text-center'> $row[nombre] </td>
                      <td class='text-center'> $row[material] </td>
                      <td class='text-center'> $row[cantidad] </td>
                      <td class='text-center'> $row[descripcion] </td>
                      <td class='text-center'> $row[fecha] </td>
+                     <td><form method='POST' action='eliminar.php'> \n
+                         <input type='hidden' name='eliminar' value='$row[id]' />
+                    <input type='submit' name='id' value='Eliminar' class='btn btn-default text-center'>
+                    </form></td>
                   </tr>";
             }
             echo "</table>";

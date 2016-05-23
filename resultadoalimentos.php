@@ -20,10 +20,6 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.min.css">
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -92,43 +88,61 @@
 
         <div>
             <ul class="pager">
-                <li><a href="iconsulta.php">Anterior</a></li>
+                <li><a href="fechaalimentos.php">Anterior</a></li>
             </ul>
         </div>
 
-        <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
-                    </div>
-                </div>
+            <?php
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
-                    </div>
-                </div>
-            </div>
+                include 'ser.php';
+                if (isset($_POST['enviar'])) {
+                    
+                    $fecha = $_POST['desde'];
+                    $fecha = $_POST['hasta'];
+                    /* Realizamos la consulta SQL */
+                    $sql = "SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , 
+                    alimentos.Alimento , ingrersos.cantidad_alimento , ingrersos.descripcion , ingrersos.Fecha 
+                    FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
+                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria 
+                    INNER JOIN alimentos ON alimentos.Alimento = ingrersos.id_alimento
+                    WHERE ingrersos.fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."'";
+                    $result = mysql_query($sql) or die("Error");
+             
+                        if(mysql_num_rows($result)==0) die("<script type=\"text/javascript\">alert('No hay ingresos para mostrar'); window.location='fechaalimentos.php';</script>");
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
-                    </div>
-                </div>
-            </div>
+                             /* Desplegamos cada uno de los registros dentro de una tabla */  
+                            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
 
-        </div>
+                            /*Priemro los encabezados*/
+                             echo "<tr>
+                                    <th class='text-center' colspan=7> Resultado de Consulta por Fecha </th>
+                                   <tr>
+                                     <th class='text-center'> Nombre </th>
+                                     <th class='text-center'> Apellido </th>
+                                     <th class='text-center'> Clasificacion </th>
+                                     <th class='text-center'> Alimento </th>
+                                     <th class='text-center'> Cantidad </th>
+                                     <th class='text-center'> Descripcion </th>
+                                     <th class='text-center'> Fecha de I </th>
+                                  </tr>";
+
+                             /*Y ahora todos los registros */
+                             while($row=mysql_fetch_array($result))
+                                {
+                             echo "<tr>
+                                 <td> $row[Nombre] </td>
+                                 <td> $row[Apellido] </td>
+                                 <td> $row[clasificacion] </td>
+                                 <td> $row[Alimento] </td>
+                                 <td> $row[cantidad_alimento] </td>
+                                 <td> $row[descripcion] </td>
+                                 <td> $row[Fecha] </td>
+                                 </tr>";
+                             }
+                            echo "</table>";
+
+                 }
+            ?>
 
     </div>
 

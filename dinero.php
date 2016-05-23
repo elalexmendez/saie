@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -90,10 +91,10 @@
         </div><br>
         <div class="row">
             <div class="col-md-offset-4">
-                <form method="post" class="col-sm-6" action="regdinero.php">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="regdinero.php">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Donado por:</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre del Donante" required autocomplete="off">
+                        <label for="exampleInputEmail1">Contribuyente:</label>
+                        <input type="text" name="cedula" class="form-control" placeholder="Cedula del Contribuyente" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Cantidad</label>
@@ -102,10 +103,10 @@
                     
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label><br>
-                        <textarea class="span4" name="mensaje" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
+                        <textarea class="span4 form-control" name="mensaje" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
                     </div>
                     <button type="submit" name="enviar" class="btn btn-default">Registrar</button>
-                    <button type="reset" name="enviar" class="btn btn-default">Borrar</button>
+                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
                 </form>
             </div>
         </div>

@@ -117,62 +117,32 @@
         <div class="row">    
             <div class="col-md-offset-4 ">
               
-                    <form method="post" class="col-sm-6 panel panel-primary panel-body" action="regalimentos.php">
+                    <form method="post" class="col-sm-6 panel panel-primary panel-body" action="aliprueba.php">
 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Donado por:</label>
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Donante" required autocomplete="off">
+                            <label for="exampleInputEmail1">Cedula del Contribuyente</label>
+                            <input type="text" name="cedula" class="form-control" placeholder="Cedula" required autocomplete="off" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
                         </div>
 
-                        <label for="sel1 text-center">Tipo de Alimento:</label>   
-                        <table id="tblSample" class="table table-striped custab cellspacing=0">
-                            <tr>
-                            <td>
-                        <select class="form-control" name="alimentos" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
-                            <option value="" selected="selected">- selecciona -</option>
-                            <optgroup label="Viveres">
-                                <option value="Harina">Harina</option>
-                                <option value="Arroz">Arroz</option>
-                                <option value="Pasta">Pasta</option>
-                                <option value="Azucar">Azucar</option>
-                                <option value="Leche">Leche</option>
-                                <option value="Café">Café</option>
-                                <option value="Aceite">Aceite</option>
-                                <option value="Mantequilla">Mantequilla</option>
-                                <option value="Caraotas">Caraotas</option>
-                                <option value="Frijoles">Frijoles</option>
-                                <option value="Mayonesa">Mayonesa</option>
-                                <option value="Salsa de Tomate">Salsa de Tomate</option>
-                                <option value="Salsa de Ajo">Salsa de Ajo</option>
-                                <option value="Salsa Inglesa">Salsa Inglesa</option>
-                                <option value="Salsa China">Salsa China</option>
-                                <option value="Salsa 59">Salsa 59</option>
-                                <option value="Cereales">Cereales</option>
-                                <option value="Galletas">Galletas</option>
-                                <option value="Chicha">Chicha</option>
-                            </optgroup>
+                        <label for="exampleInputEmail1">Alimento</label>
+                        <select class="form-control" name="nombre">
+                            <optgroup label="Alimentos"><option>Seleccionar Alimento</option>
+                        <?php
+                        include 'ser.php';
 
-                            <optgroup label="Panaderia">
-                                <option value="Pan">Pan</option>
-                                <option value="Pan Arabe">Pan Arabe</option>
-                            </optgroup>
-                            
-                            <optgroup label="Charcuteria">
-                                <option value="Mortadela">Mortadela</option>
-                                <option value="Jamon">Jamon</option>
-                                <option value="Queso">Queso</option>
-                                <option value="Salchica">Salchica</option>
-                            </optgroup>
-
-                            <optgroup label="Carniceria">
-                                <option value="Carne">Carne</option>
-                                <option value="Pollo">Pollo</option>
-                                <option value="Chuleta">Chuleta</option>
-                                <option value="Chorizo">Chorizo</option>
-                                <option value="Costilla">Costilla</option>
-                                <option value="Puerco">Puerco</option>
-                            </optgroup>
+                            $sql= "SELECT Alimento FROM alimentos";
+ 
+                            $result = mysql_query($sql);
+                            while($campo = mysql_fetch_array($result)) {
+                            echo "<option name='alimento' value='".$campo['Alimento']."'>".$campo['Alimento']."</option>";
+                            }
+ 
+                        ?>
+                        </optgroup>
                         </select><br>
+
+
+                        
                         <div class="form-group">
                             <label for="exampleInputEmail1">Cantidad</label>
                             <input type="text" name="cantidad" class="form-control" placeholder="Cantidad de Alimento" required autocomplete="off" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
@@ -186,11 +156,11 @@
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción</label><br>
-                            <textarea class="span4" name="descripcion" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
+                            <textarea class="span4 form-control" name="descripcion" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
                         </div>
 
                         <button type="submit" name="enviar" class="btn btn-default">Registar</button>
-                        <button type="reset" name="enviar" class="btn btn-default">Borrar</button>
+                        <button type="reset" class="btn btn-default">Limpiar</button>
 
                     </form>    
             </div>

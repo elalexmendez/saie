@@ -90,17 +90,10 @@
 
         <div class="row">
             <h2 class="col-sm-11">Inventario General</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Dinero</a>
-                    </div>
-                </div>
+        </div>
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
+            <div class="col-sm-6 ">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
                        <a class="btn btn-primary" href="invmateriales.php" role="button">Materiales</a> 
@@ -108,8 +101,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
+            <div class="col-sm-6 ">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
                         <a class="btn btn-primary" href="#" role="button">Alimentos</a> 

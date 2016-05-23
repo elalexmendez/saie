@@ -85,34 +85,23 @@
 
         <br>
         <br>
-        <br>
-        <br>
 
         <div class="row">
-            <h2 class="col-sm-11">Consultas acerca de cada Ingreso</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="dinconsulta.php" role="button">Dinero</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
+            <h2 class="col-sm-11">Consultas de Ingresos y Egresos</h2>
+            <div class="col-sm-6 ">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
+                       <a class="btn btn-primary" href="iconsulta.php" role="button">Ingresos</a> 
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail">
+            <div class="col-sm-6 ">
+                <div class="thumbnail panel-primary">
                     <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
-                        <a class="btn btn-primary" href="#" role="button">Alimentos</a> 
+                        <a class="btn btn-primary" href="econsulta.php" role="button">Egresos</a> 
                     </div>
                 </div>
             </div>

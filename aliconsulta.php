@@ -97,33 +97,33 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
+            <h2 class="col-sm-11">Consultas sobre Ingresos de Alimentos</h2>
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
+                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
                         <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
+                        <a class="btn btn-primary" href="fechaalimentos.php" role="button">ir</a>
                     </div>
                 </div>
 
             </div>
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
+                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
+                        <p>Consulta sobre total de Producto</p>
+                       <a class="btn btn-primary" href="totalalimentos.php" role="button">ir</a> 
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
+                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
                         <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
+                        <a class="btn btn-primary" href="histalimentos.php" role="button">ir</a> 
                     </div>
                 </div>
             </div>

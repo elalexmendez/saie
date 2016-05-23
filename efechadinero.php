@@ -20,15 +20,13 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.min.css">
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -89,46 +87,34 @@
 
         <br>
         <br>
+        <br>
+        <br>
 
         <div>
             <ul class="pager">
-                <li><a href="iconsulta.php">Anterior</a></li>
+                <li><a href="edinconsulta.php">Anterior</a></li>
             </ul>
         </div>
 
+        <div class="col-md-20 text-center" >
+            <h3>Consultas por Fecha de Egresos de Dinero</h3>
+        </div><br>
         <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
+            <div class="col-md-offset-5">
+                <form method="post" class="col-sm-4 panel panel-primary panel-body" action="resultadodinero.php">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Desde:</label>
+                        <input type="text" name="desde" class="form-control" placeholder="AAAA-MM-DD" required autocomplete="off">
                     </div>
-                </div>
-
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hasta</label>
+                        <input type="text" name="hasta" class="form-control" placeholder="AAAA-MM-DD" required autocomplete="off">
                     </div>
-                </div>
+                    <button type="submit" name="enviar" class="btn btn-default">Consultar</button>
+                </form>
             </div>
-
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
-                    </div>
-                </div>
-            </div>
-
         </div>
+</div>
 
     </div>
 

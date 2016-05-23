@@ -20,10 +20,6 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.min.css">
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -56,13 +52,13 @@
                         <li>
                             <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
                         <li>
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
                         </li>
 
@@ -86,53 +82,36 @@
             </div>
             <!--/.container-fluid -->
         </nav>
+        
+        <br><br><br><br>
 
-        <br>
-        <br>
-
-        <div>
-            <ul class="pager">
-                <li><a href="iconsulta.php">Anterior</a></li>
-            </ul>
-        </div>
-
+        <div class="col-md-20 text-center" >
+            <h3>Control de Egresos de Dinero</h3>
+        </div><br>
         <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
+            <div class="col-md-offset-4">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="sdinero.php">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Egreso:</label>
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre del Egreso" required autocomplete="off">
                     </div>
-                </div>
-
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Cantidad</label>
+                        <input type="number" name="cantidad" class="form-control" placeholder="Cantidad de Dinero" required autocomplete="off">
                     </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Descripción</label><br>
+                        <textarea class="span4 form-control" name="mensaje" cols="48" rows="5"  placeholder="Descripción del Egreso" ></textarea>
                     </div>
-                </div>
+                    <button type="submit" name="enviar" class="btn btn-default">Aceptar</button>
+                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
+                </form>
             </div>
-
         </div>
-
     </div>
 
-    <footer class="footer">
+     <footer class="footer">
         <div class="container">
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
@@ -155,3 +134,5 @@
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+
+<html>

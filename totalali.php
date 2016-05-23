@@ -20,15 +20,13 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/flick/jquery-ui.min.css">
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -92,43 +90,52 @@
 
         <div>
             <ul class="pager">
-                <li><a href="iconsulta.php">Anterior</a></li>
+                <li><a href="totalalimentos.php">Anterior</a></li>
             </ul>
         </div>
 
-        <div class="row">
-            <h2 class="col-sm-11">Consultas sobre Ingresos de Dinero</h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta por Fecha</p>
-                        <a class="btn btn-primary" href="fechadinero.php" role="button">ir</a>
-                    </div>
-                </div>
+        <div class="col-md-20 text-center" >
+            <h3>Resultado de la Consulta</h3>
+        </div><br>
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta sobre total de Dinero</p>
-                       <a class="btn btn-primary" href="totaldinero.php" role="button">ir</a> 
-                    </div>
-                </div>
-            </div>
+        <div class="row col-md-4 col-md-offset-4 custyle">
+			
+        	<?php
+	$conexion = mysql_connect("localhost", "root");
+	mysql_select_db("saie", $conexion);
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <p>Consulta acerca de Historial de Ingresos</p>
-                        <a class="btn btn-primary" href="histdinero.php" role="button">ir</a> 
-                    </div>
-                </div>
-            </div>
+	$sql = "SELECT SUM(Cantidad) as total_sum FROM alimentos WHERE Alimento = '{$_POST['producto']}'";
+	$result = mysql_query($sql);
+		
+	if(mysql_num_rows($result));
 
-        </div>
+            /* Desplegamos cada uno de los registros dentro de una tabla */  
+            echo "<table class='table table-striped custab text-center' border=1>";
+
+            /*Priemro los encabezados*/
+             echo "<tr>
+                     <th class='text-center' colspan=2> Datos de Ingresos </th>
+
+                   <tr>
+                     <th class='text-center' > Producto </th>
+                     <th class='text-center'> Cantidad Total </th>
+                     
+                  </tr>";
+
+            /*Y ahora todos los registros */
+            while($row=mysql_fetch_array($result))
+            {
+             echo "<tr>
+                     <td> {$_POST['producto']} </td>
+                     <td> $row[total_sum] </td>
+                  </tr>";
+            }
+            echo "</table>";
+?>
+
+        </div>  
+
+</div>
 
     </div>
 

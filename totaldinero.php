@@ -87,8 +87,8 @@
 
         <br>
         <br>
-        <br>
-        <br>
+        
+
         <div>
             <ul class="pager">
                 <li><a href="dinconsulta.php">Anterior</a></li>
@@ -99,17 +99,17 @@
             <?php
 
     include 'ser.php';
-        $sql = ("SELECT SUM(cantidad) as total_suma FROM dinero");
+        $sql = ("SELECT * FROM totaldinero WHERE cantidad");
         $result = mysql_query($sql) or die("Error");
  
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
+            if(mysql_num_rows($result));
 
                  /* Desplegamos cada uno de los registros dentro de una tabla */  
                 echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
 
                 /*Priemro los encabezados*/
                  echo "<tr>
-                        <th class='text-center' colspan=5> Resultado de Consulta por Fecha </th>
+                        <th class='text-center' colspan=5> Catidad total de Dinero </th>
                    <tr>
                      <th class='text-center'> Cantidad </th>
                      
@@ -119,7 +119,7 @@
                  while($row=mysql_fetch_array($result))
                     {
                  echo "<tr>
-                     <td class='text-center'> $row[total_suma] Bs. </td>
+                     <td class='text-center'> $row[cantidad] Bs. </td>
                      </tr>";
                  }
                 echo "</table>";
