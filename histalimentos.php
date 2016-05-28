@@ -103,14 +103,15 @@
             /* Realizamos la consulta SQL */
             $sql="SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , 
             alimentos.Alimento , ingrersos.cantidad_alimento , ingrersos.descripcion , ingrersos.Fecha 
-            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
+            FROM donadores 
+            INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
             INNER JOIN categorias ON categorias.id = ingrersos.id_categoria 
             INNER JOIN alimentos ON alimentos.Alimento = ingrersos.id_alimento";
             $result= mysql_query($sql) or die(mysql_error());
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
             /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+            echo "<table class='table table-striped custab text-center table-bordered' cellpadding=4 cellspacing=0>";
 
             /*Priemro los encabezados*/
              echo "<tr>

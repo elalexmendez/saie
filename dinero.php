@@ -84,29 +84,38 @@
             <!--/.container-fluid -->
         </nav>
         
-        <br><br><br><br>
+        <br><br>
 
         <div class="col-md-20 text-center" >
             <h3>Control de Ingresos de Dinero</h3>
         </div><br>
         <div class="row">
             <div class="col-md-offset-4">
-                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="regdinero.php">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="verificardonante.php">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Contribuyente:</label>
                         <input type="text" name="cedula" class="form-control" placeholder="Cedula del Contribuyente" required autocomplete="off">
+                        <br><button class="btn btn-primary">Confirmar</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre</label>
+                        <input type="text" class="form-control" placeholder="Nombre del Contribuyente"  autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Apeliido</label>
+                        <input type="text" class="form-control" placeholder="Apellido del Contribuyente"  autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Cantidad</label>
-                        <input type="number" name="cantidad" class="form-control" placeholder="Cantidad de Dinero" required autocomplete="off">
+                        <input type="number" name="cantidad" class="form-control" placeholder="Cantidad de Dinero"  autocomplete="off">
                     </div>
                     
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label><br>
                         <textarea class="span4 form-control" name="mensaje" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
                     </div>
-                    <button type="submit" name="enviar" class="btn btn-default">Registrar</button>
-                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
+                    <a href="ingresos.php" class="btn btn-default">Cancelar</a>
                 </form>
             </div>
         </div>

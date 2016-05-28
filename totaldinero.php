@@ -99,13 +99,13 @@
             <?php
 
     include 'ser.php';
-        $sql = ("SELECT * FROM totaldinero WHERE cantidad");
+        $sql = ("SELECT * FROM totaldinero");
         $result = mysql_query($sql) or die("Error");
  
             if(mysql_num_rows($result));
 
                  /* Desplegamos cada uno de los registros dentro de una tabla */  
-                echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+                echo "<table class='table table-striped custab text-center table-bordered' cellpadding=4 cellspacing=0>";
 
                 /*Priemro los encabezados*/
                  echo "<tr>

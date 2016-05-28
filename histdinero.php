@@ -97,12 +97,13 @@
         <?php
 
             /* Abrimos la base de datos */
-              $conx = mysql_connect ("localhost","root","");
-              if (!$conx) die ("Error al abrir la base <br/>". mysql_error()); 
-              mysql_select_db("saie") OR die("Connection Error to Database");    
+              include 'ser.php';    
 
             /* Realizamos la consulta SQL */
-            $sql="SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , dinero.cantidad , 
+            $sql = "SELECT * FROM ingrersos";
+            $result = mysql_query($sql);
+
+            $sql="SELECT ingrersos.id , donadores.Nombre , donadores.Apellido , categorias.clasificacion , dinero.cantidad , 
             ingrersos.descripcion , ingrersos.Fecha 
             FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
             INNER JOIN dinero ON dinero.cantidad = ingrersos.id_dinero 
@@ -111,7 +112,7 @@
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
             /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+            echo "<table class='table table-striped custab text-center table-bordered'  cellpadding=4 cellspacing=0>";
 
             /*Priemro los encabezados*/
              echo "<tr>

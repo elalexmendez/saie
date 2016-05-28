@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Inventario</title>
+    <title>Inventario Alimentos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -88,28 +88,42 @@
         <br>
         <br>
 
-        <div class="row">
-            <h2 class="col-sm-11">Inventario General</h2>
-        </div>
+        <div class="row col-md-6 col-md-offset-3 custyle">
+        <?php
+            /* Abrimos la base de datos */
+              include 'ser.php';    
 
-            <div class="col-sm-6 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                       <a class="btn btn-primary" href="invmateriales.php" role="button">Materiales</a> 
-                    </div>
-                </div>
-            </div>
+            /* Realizamos la consulta SQL */
+            $sql="select * from alimentos";
+            $result= mysql_query($sql) or die(mysql_error());
+            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
-            <div class="col-sm-6 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="invalimentos.php" role="button">Alimentos</a> 
-                    </div>
-                </div>
-            </div>
+            /* Desplegamos cada uno de los registros dentro de una tabla */  
+            echo "<table class='table text-center table-bordered' cellpadding=3 cellspacing=0>";
 
+            /*Priemro los encabezados*/
+             echo " <tr>
+                      <th class='text-center' colspan=3> Inventario de Alimentos </th>
+                    <tr>
+
+                     <th class='text-center'> ID </th>
+                     <th class='text-center'> Nombre </th>
+                     <th class='text-center'> Cantidad </th>
+                  </tr>";
+
+            /*Y ahora todos los registros */
+            while($row=mysql_fetch_array($result))
+            {
+             echo "<tr scope='row'>
+                     <td class='text-center'> $row[id] </td>
+                     <td class='text-center'> $row[Alimento] </td>
+                     <td class='text-center'> $row[Cantidad] </td>
+                  </tr>";
+            }
+            echo "</table>";
+            
+
+        ?>
         </div>
 
     </div>
@@ -131,6 +145,7 @@
         })
     </script>
 </body>
+
 
 <?php
     }else{

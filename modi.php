@@ -83,95 +83,42 @@
             <!--/.container-fluid -->
         </nav>
 
-        <br><br><br>
+        <br><br>
 
-        <div>
-            <ul class="pager">
-                <li><a href="consumodificacion.php">Anterior</a></li>
-            </ul>
+        <h2 class="col-sm-11">Modificar Ingresos </h2>
+        <div class="row">
+            
+            <a href="modidinero.php" role="button">
+                <div class="col-sm-4 ">
+                <div class="thumbnail panel-primary">
+                    <div class="caption">
+                        <h1>Dinero</h1>
+                    </div>
+                </div></a>
+
+            </div>
+
+            <a href="#" role="button">
+                <div class="col-sm-4 ">                
+                    <div class="thumbnail panel-primary">
+                    <div class="caption">
+                        <h1>Materiales</h1>
+                    </div>
+                </div></a> 
+            </div>
+
+            <a href="#" role="button">
+                <div class="col-sm-4 ">
+                <div class="thumbnail panel-primary">
+                    <div class="caption">
+                        <h1>Alimentos</h1>
+                     
+                    </div>
+                </div></a>
+            </div>
+
         </div>
 
-         <div class="row col-md-10 col-md-offset-1 custyle">
-            <?php
-  
-                  $conexion = mysql_connect("localhost", "root");
-
-                  mysql_select_db("saie" , $conexion);
-
-                  $alimentos = $_POST['id'];
-                 
-                  
-                  $sql=" SELECT * FROM alimentos WHERE id = '{$_POST['id']}'";
-                  $result = mysql_query($sql);
-
-                /* Desplegamos cada uno de los registros dentro de una tabla */  
-                echo "<table class='table text-center table-responsive' border=1 cellpadding=4 cellspacing=0>";
-
-                /*Priemro los encabezados*/
-                 echo "<tr>
-                                     <th class='text-center' colspan=6> Inventario de Materiales </th>
-                                   <tr>
-                                     <th class='text-center'> ID </th>
-                                     <th class='text-center'> Nombre </th>
-                                     <th class='text-center'> Alimento </th>
-                                     <th class='text-center'> Cantidad </th> 
-                                     <th class='text-center'> Descripcion </th>
-                                     <th class='text-center'> Fecha de Ingreso </th>
-                                  </tr>";
-
-                /*Y ahora todos los registros */
-                while($row=mysql_fetch_array($result))
-                {
-                 echo "<tr>
-                         <td align='right'> $row[id] </td>
-                         <td> $row[Nombre] </td>
-                         <td> $row[Alimento] </td>
-                         <td> $row[Cantidad] </td>
-                         <td> $row[Descripcion] </td>
-                         <td> $row[Fecha] </td>
-                      </tr>";
-                }
-                echo "</table>"; 
-
-            ?>
-
-
-         </div>  
-         <br><br>
-
-
-        <div class="col-md-20 text-center" >
-            <h3>Modificacion de Ingresos de Dinero</h3>
-        </div><br>
-        <div class="row">
-            <div class="col-md-offset-4">
-                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="prueba.php">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Codigo:</label>
-                        <input type="text" name="id" class="form-control" placeholder="Codigo de Ingreso" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Contribuyente:</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre del Contribuyente" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Alimento</label>
-                        <input type="text" name="alimento" class="form-control" placeholder="Tipo de Alimento" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Cantidad</label>
-                        <input type="number" name="cantidad" class="form-control" placeholder="Cantidad de Alimento" autocomplete="off">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Intención del Contribuyente</label><br>
-                        <textarea class="span4" name="descripcion" cols="48" rows="5"  placeholder="  Descripción" ></textarea>
-                    </div>
-                    <button type="submit" name="enviar" class="btn btn-default">Modificar</button>
-                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
-                </form>
-            </div>
-        </div> 
     </div>
 
     <footer class="footer">

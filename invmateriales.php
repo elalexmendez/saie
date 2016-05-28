@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Inventario Materiales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -99,18 +99,18 @@
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
             /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table text-center' border=1 cellpadding=4 cellspacing=0>";
+            echo "<table class='table text-center table-bordered' cellpadding=4 cellspacing=0>";
 
             /*Priemro los encabezados*/
              echo " <h2 class='col-sm-11'>Inventario de Materiales</h2>
 
                     <thead>
                      <th class='text-center'> ID </th>
-                     <th class='text-center'> Nombre </th>
                      <th class='text-center'> Material </th>
                      <th class='text-center'> Cantidad </th> 
                      <th class='text-center'> Descripcion </th>
                      <th class='text-center'> Fecha de Ingreso </th>
+                     <th></th>
                      <th></th>
                   </tr>
                   </thead>";
@@ -120,7 +120,6 @@
             {
              echo "<tr scope='row'>
                      <td class='text-center'> $row[id] </td>
-                     <td class='text-center'> $row[nombre] </td>
                      <td class='text-center'> $row[material] </td>
                      <td class='text-center'> $row[cantidad] </td>
                      <td class='text-center'> $row[descripcion] </td>
@@ -129,6 +128,7 @@
                          <input type='hidden' name='eliminar' value='$row[id]' />
                     <input type='submit' name='id' value='Eliminar' class='btn btn-default text-center'>
                     </form></td>
+                    <td><a href='actualizarmateriales.php?id=".$row['id']."'>Actualizar</a></td>
                   </tr>";
             }
             echo "</table>";

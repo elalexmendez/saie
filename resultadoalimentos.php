@@ -111,7 +111,7 @@
                         if(mysql_num_rows($result)==0) die("<script type=\"text/javascript\">alert('No hay ingresos para mostrar'); window.location='fechaalimentos.php';</script>");
 
                              /* Desplegamos cada uno de los registros dentro de una tabla */  
-                            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+                            echo "<table class='table table-striped custab text-center table-bordered' cellpadding=4 cellspacing=0>";
 
                             /*Priemro los encabezados*/
                              echo "<tr>

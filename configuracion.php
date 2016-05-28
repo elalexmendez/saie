@@ -117,7 +117,7 @@
                     <div class="caption">
                         <h3>Modificación</h3>
                         <p>Control de Egreros de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="consumodificacion.php" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="modi.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>

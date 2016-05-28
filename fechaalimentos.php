@@ -30,11 +30,11 @@
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">       
+        <link rel="stylesheet" href="assets/css/bootstrap2.min.css">       
 
         <!-- Selector de Fechas -->
         <script src='scripts/modernizr.js'></script>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="assets/css/jquery-ui.css" />
         <script src="assets/js/vendor/jquery-1.9.1.min.js"></script>
         <script src="assets/js/vendor/jquery-ui.min.js"></script>
         <script>

@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Inventario</title>
+    <title>Control de Ingresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -49,13 +49,13 @@
                         <li>
                             <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
                         </li>
                         <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
                         <li>
@@ -82,39 +82,51 @@
             </div>
             <!--/.container-fluid -->
         </nav>
+        
+        <br><br>
 
-        <br>
-        <br>
-        <br>
-        <br>
+        <div class="col-md-20 text-center">
+            <h3>Actualizar Ingreso de Dinero</h3>
+        </div><br>
 
-        <div class="row">
-            <h2 class="col-sm-11">Inventario General</h2>
-        </div>
+        <?php
+        include 'ser.php';
 
-            <div class="col-sm-6 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                       <a class="btn btn-primary" href="invmateriales.php" role="button">Materiales</a> 
+        $id = $_GET['id'];
+
+        $sql = "SELECT * FROM ingrersos WHERE id = $id";
+        $result = mysql_query($sql);
+        $row = mysql_fetch_array($result);
+
+        echo "<div class='row'>
+            <div class='col-md-offset-4'>
+                <form method='POST' action='actdinero.php' class='col-sm-6 panel panel-primary panel-body'>
+                	<div class='form-group'>
+                        <input type='hidden' name='id' value='$row[id]' class='form-control'  required autocomplete='off'>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-6 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <a class="btn btn-primary" href="invalimentos.php" role="button">Alimentos</a> 
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Contribuyente:</label>
+                        <input type='text' name='cedula' value='$row[id_donadores]' class='form-control'  required autocomplete='off'>
                     </div>
-                </div>
+
+                    <div class='form-group'>
+                        <label for='exampleInputPassword1'>Cantidad</label>
+                        <input type='number' name='cantidad' value='$row[id_dinero]' class='form-control'  required autocomplete='off'>
+                    </div>
+                    
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Descripción</label><br>
+                        <textarea class='span4 form-control' value='$row[descripcion]' name='mensaje' cols='48' rows='5' ></textarea>
+                    </div>
+                    <button type='submit' class='btn btn-default'>Actualizar</<button>
+                </form>
             </div>
-
         </div>
-
+        "?> 
     </div>
 
-    <footer class="footer">
+     <footer class="footer">
         <div class="container">
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
@@ -137,3 +149,5 @@
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+
+<html>

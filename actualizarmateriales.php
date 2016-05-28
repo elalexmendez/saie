@@ -8,12 +8,12 @@
 ?>
 
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Egresos</title>
+    <title>Control de Ingresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <!-- Static navbar -->
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -49,14 +49,14 @@
                         <li>
                             <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
                         <li>
-                            <a href="inventario.php"> <i class="fa fa-sign-out"></i> Inventario</a>
+                            <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
                         <li>
                             <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
@@ -82,51 +82,55 @@
             </div>
             <!--/.container-fluid -->
         </nav>
-
-        <br><br>
         
-        <div class="row">
-            <h2 class="col-sm-11">Control de Egresos </h2>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
-                    <div class="caption">
-                        <h3>Dinero</h3>
-                        <p>Control de Egresos de el Dinero de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <a class="btn btn-primary" href="edinero.php" role="button">Dinero</a>
-                    </div>
-                </div>
+        <br><br>
 
-            </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/materiales.jpg" alt="...">
-                    <div class="caption">
-                        <h3>Materiales</h3>
-                        <p>Control de Egresos de los Materiales de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a> 
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-20 text-center">
+            <h3>Control de Ingresos de Materiales</h3>
+        </div><br>
 
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/alimentos.jpg" alt="...">
-                    <div class="caption">
-                        <h3>Alimentos</h3>
-                        <p>Control de Egresos de los Alimentos de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <a class="btn btn-primary" href="ealimentos.php" role="button">Alimentos</a> 
-                    </div>
-                </div>
-            </div>
+        <?php
+        include 'ser.php';
 
+        $id = $_GET['id'];
+
+        $sql = "SELECT * FROM mteriales WHERE id = $id";
+        $result = mysql_query($sql);
+        $row = mysql_fetch_array($result);
+
+        echo "<div class='row'>
+            <div class='col-md-offset-4'>
+                <form method='POST' action='actmateriales.php' class='col-sm-6 panel panel-primary panel-body'>
+                	<div class='form-group'>
+                        <input type='hidden' name='id' value='$row[id]' class='form-control'  required autocomplete='off'>
+                    </div>
+
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Contribuyente:</label>
+                        <input type='text' name='cedula' value='$row[id_donadores]' class='form-control'  required autocomplete='off'>
+                    </div>
+                    <div class='form-group'>
+                        <label for='exampleInputPassword1'>Material</label>
+                        <input type='text' name='material' value='$row[material]' class='form-control'  required autocomplete='off'>
+                    </div>
+
+                    <div class='form-group'>
+                        <label for='exampleInputPassword1'>Cantidad</label>
+                        <input type='number' name='cantidad' value='$row[cantidad]' class='form-control'  required autocomplete='off'>
+                    </div>
+                    
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Descripción</label><br>
+                        <textarea class='span4 form-control' value='$row[descripcion]' name='mensaje' cols='48' rows='5' ></textarea>
+                    </div>
+                    <button type='submit' class='btn btn-default'>Actualizar</<button>
+                </form>
+            </div>
         </div>
-
+        "?> 
     </div>
-    <!-- /container -->
 
-
-    <footer class="footer">
+     <footer class="footer">
         <div class="container">
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
@@ -142,7 +146,6 @@
             interval: 5000 //changes the speed
         })
     </script>
-
 </body>
 
 <?php
@@ -150,3 +153,5 @@
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+
+<html>
