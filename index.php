@@ -1,12 +1,6 @@
 <?php
-    session_start();
-    include 'ser.php';
-
-    if (isset($_SESSION['usuario'])) {
-        echo "";
-    
+    require "resources/config.php";
 ?>
-
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -26,72 +20,12 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    
-
-
 </head>
 
 <body>
     <div class="container">
-        <!-- Static navbar -->
 
-        
-        
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php">
-                        <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
-                    </a>
-                </div>
-
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
-                        </li>
-                        <li>
-                            <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
-                        </li>
-                        <li>
-                            <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
-                        </li>
-                        <li>
-                            <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
-                        </li>
-                        <li>
-                            <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
-                        </li>
-
-                    </ul>
-    
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
-                        </li>
-                        <li>
-                            <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
-                        </li>
-                    </ul>
-                    
-                    <?php
-                        include 'ser.php';
-
-                        echo "<br><h5 class='navbar-text pull-right'>Usuario: $_SESSION[usuario]</h5><br> 
-                        "
-                    ?>
-
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-        </nav>
+        <?php include "resources/views/navbar.php"; ?>
 
         <!-- Main component for a primary marketing message or call to action -->
         <div id="myCarousel" class="carousel slide">
@@ -159,7 +93,7 @@
                     <div class="caption">
                         <h3>Egresos</h3>
                         <p>Control de Egreros de los Recursos y Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="egresos.php" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="egresos.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
             </div>
@@ -170,7 +104,7 @@
                     <div class="caption">
                         <h3>Inventario</h3>
                         <p>Descripción y Verificación de todos los Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="inventario.php" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="inventario.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
             </div>
@@ -181,7 +115,7 @@
                     <div class="caption">
                         <h3>Nuevo Contribuyente</h3>
                         <p>Registro de nuevo Contribuyente para hacer un ingreso eficaz y agendarlo en la base de datos</p>
-                        <p><a href="contribuyente.php" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="contribuyente.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
             </div>
@@ -189,28 +123,12 @@
     </div>
     <!-- /container -->
 
-    <footer class="footer">
-        <div class="container">
-            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
-        </div>
-    </footer>
+    <?php include "resources/views/footer.php"; ?>
 
     <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
-
 </body>
 
-<?php
-    }else{
-        echo '<script> window.location="login.php"; </script>';
-    }
-?>
 </html>

@@ -279,5 +279,15 @@ marquee{
 }
 
 footer {
-    margin: 50px 0;
+/*    margin: 50px 0;*/
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 25px;
+  background-color: #fff;
+  padding: 5px;
 }

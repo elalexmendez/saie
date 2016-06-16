@@ -1,10 +1,5 @@
 <?php
-    session_start();
-    include 'ser.php';
-
-    if (isset($_SESSION['usuario'])) {
-        echo "";
-    
+    require "resources/config.php";
 ?>
 
 <!doctype html>
@@ -30,58 +25,7 @@
 
 <body>
     <div class="container">
-        <!-- Static navbar -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php">
-                        <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
-                    </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
-                        </li>
-                        <li class="active">
-                            <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
-                        </li>
-                        <li>
-                            <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
-                        </li>
-                        <li>
-                            <a href="inventario.php"> <i class="fa fa-sign-out"></i> Inventario</a>
-                        </li>
-                        <li>
-                            <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
-                        </li>
-
-                    </ul>
-
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
-                        </li>
-                        <li>
-                            <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-        </nav>
-        <br><br>
-
-        
-        
-       
+        <?php include "resources/views/navbar.php"; ?>
 
          <div class="row">
             <h2 class="col-sm-11">Control de Ingresos </h2>
@@ -102,7 +46,7 @@
                     <div class="caption">
                         <h3>Materiales</h3>
                         <p>Control de Ingresos de los Materiales de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                       <a class="btn btn-primary" href="materiales.php" role="button">Materiales</a> 
+                       <a class="btn btn-primary" href="materiales.php" role="button">Materiales</a>
                     </div>
                 </div>
             </div>
@@ -113,7 +57,7 @@
                     <div class="caption">
                         <h3>Alimentos</h3>
                         <p>Control de Ingresos de los Alimentos de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <a class="btn btn-primary" href="alimentos.php" role="button">Alimentos</a> 
+                        <a class="btn btn-primary" href="alimentos.php" role="button">Alimentos</a>
                     </div>
                 </div>
             </div>
@@ -124,27 +68,12 @@
     </div>
     <!-- /container -->
 
-    <footer class="footer">
-        <div class="container">
-            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
-        </div>
-    </footer>
+    <?php include "resources/views/footer.php"; ?>
 
     <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
+
 
 </body>
-
-<?php
-    }else{
-        echo '<script> window.location="login.php"; </script>';
-    }
-?>

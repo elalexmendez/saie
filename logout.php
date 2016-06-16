@@ -1,17 +1,9 @@
 <?php
 	session_start();
+
+    @unset($_SESSION['usuario']);
+
 	session_destroy();
-	echo '<script> window.location="login.php"; </script>';
+	header("Location: login.php?from=logout");
+    die();
 ?>
-
-<!DOCTYPE HTML>
-<html>
-<head>
-
-</head>
-
-<body>
-<script language="javascript">location.href = "login.php";</script>
-</body>
-
-</html>

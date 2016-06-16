@@ -1,12 +1,32 @@
 <?php
-    session_start();
-    include 'ser.php';
+    require "resources/config.php";
 
-    if (isset($_SESSION['usuario'])) {
-        echo "";
-    
+    if(isset($_POST['action'])){
+
+        $sql = "INSERT INTO ingresos (donador_id, descripcion, type) VALUES (".$_POST['cedula'].", '".$_POST['descripcion']."', 'alimentos')";
+
+        if (mysql_query($sql, $conexion)) {
+            $ingreso_id = mysql_insert_id();
+
+            foreach($_POST['alimento'] as $key => $alimento){
+                $a = $_POST['alimento'][$key];
+                $c = $_POST['cantidad'][$key];
+
+                $sql_ingresos = "INSERT INTO ingresos_alimentos (ingreso_id, alimento_id, cantidad) VALUES (".$ingreso_id.", ".$a.", ".$c.")";
+                if (mysql_query($sql_ingresos, $conexion)) {
+                    $sql_alimentos = "UPDATE alimentos SET Cantidad = Cantidad + {$c} WHERE id = {$a}";
+                    mysql_query($sql_alimentos, $conexion);
+                }else{
+                    echo "Error: " . $sql . "<br>" . mysql_error($conn);
+                }
+            }
+        }else{
+            echo "Error: " . $sql . "<br>" . mysql_error($conexion);
+        }
+        header("Location: ingreso.php?id=" . $ingreso_id);
+        exit();
+    }
 ?>
-
 <!doctype html>
 <html lang="es">
 
@@ -48,7 +68,7 @@
             $(contenedor).append('<div><input type="text" name="nombre[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Nombre '+ FieldCount +'"/><input type="text" name="cantidad[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Cantidad '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
             x++; //text box increment
 
-        }   
+        }
 
         return false;
     });
@@ -68,130 +88,57 @@
 
 <body>
     <div class="container">
-        <!-- Static navbar -->
-
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php">
-                        <img src="assets/images/logo.png" class="image-responsive" style="max-width: 70px" alt="">
-                    </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
-                        </li>
-                        <li class="active">
-                            <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
-                        </li>
-                        <li>
-                            <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
-                        </li>
-                        <li>
-                            <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
-                        </li>
-                        <li>
-                            <a href="consultas.php"> <i class="fa fa-search"></i> Consultas</a>
-                        </li>
-
-                    </ul>
-
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
-                        </li>
-                        <li>
-                            <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-        </nav>
-        
-        <br><br>
+        <?php include "resources/views/navbar.php"; ?>
 
         <div class="col-md-20 text-center" >
             <h3>Control de Ingresos de Alimentos</h3>
-        </div><br>
-
-        <div class="row">    
-            <div class="col-md-offset-4 " >
-              
-                    <form method="post" class="col-sm-6 panel panel-primary panel-body" action="aliprueba.php">
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Cedula del Contribuyente</label>
-                            <input type="text" name="cedula" class="form-control" placeholder="Cedula" required autocomplete="off" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
-                        </div>
-
-                        <label for="exampleInputEmail1">Alimento</label><br>
-
-                         <a id="agregarCampo" class="btn btn-default" href="#">Agregar Campo</a><br>
-
-                        <div id="contenedor">
-                            <div class="added">
-                                
-                            <select class="form-control" id="campo_1"   name="nombre[]">
-                                    <optgroup label="Alimentos"><option>Seleccionar Alimento</option>
-                                <?php
-                                include 'ser.php';
-
-                                    $sql= "SELECT Alimento FROM alimentos";
-         
-                                    $result = mysql_query($sql);
-                                    while($campo = mysql_fetch_array($result)) {
-                                    echo "<option name='alimento' value='".$campo['Alimento']."'>".$campo['Alimento']."</option>";
-                                    }
-         
-                                ?>
-                                </optgroup>
-                                <br>
-                                <input type="text" name="nombre[]" id="campo_1" class="form-control" placeholder="Nombre"/><br>
-                                <input type="text" name="cantidad[]" id="campo_1" class="form-control" placeholder="Cantidad"/><br>
-                                <a href="#" class="eliminar">&times;</a>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Descripción</label><br>
-                            <textarea class="span4 form-control" name="descripcion" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
-                        </div>
-
-                        <button type="submit" name="enviar" class="btn btn-default">Registar</button>
-                        <button type="reset" class="btn btn-default">Limpiar</button>
-
-                    </form>    
-            </div>
         </div>
+
+        <button class="btn btn-primary pull-right" id="button-add"> <i class="fa fa-plus"></i> Agregar Alimento </button>
+
+        <div class="clearfix"></div>
+        <br>
+        <form action="?" method="POST" accept-charset="utf-8">
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <div class="panel panel-primary panel-body">
+                        <div class="form-group">
+                            <label for="ci">Cédula del Contribuyente</label>
+                            <input id="ci" type="text" name="cedula" class="form-control" placeholder="Cedula" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Descripción</label><br>
+                            <textarea id="description" class="form-control" name="descripcion" rows="7" placeholder="Descripción de la Donación" ></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-8 ">
+                    <div class="panel panel-primary panel-body">
+                        <table class="table table-hover">
+                            <tr>
+                                <td> # </td>
+                                <td>Alimento</td>
+                                <td>Cantidad</td>
+                                <td>Acciones</td>
+                            </tr>
+                            <tbody id="table-content">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        <button type="submit" class="btn btn-success pull-right"> <i class="fa fa-save"></i> Guardar</button>
+        <input type="hidden" name="action" value="add">
+        </form>
+
     </div>
 
-     <footer class="footer">
-        <div class="container">
-            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
-        </div>
-    </footer>
+    <?php include "resources/views/footer.php"; ?>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
+
 </body>
-
-<?php
-    }else{
-        echo '<script> window.location="login.php"; </script>';
-    }
-?>
-
+    <script src="/assets/js/alimentos.js"></script>
 <html>

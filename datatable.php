@@ -1,10 +1,5 @@
 <?php
-    session_start();
-    include 'ser.php';
-
-    if (isset($_SESSION['usuario'])) {
-        echo "";
-    
+    require "resources/config.php";
 ?>
 
 <!doctype html>
@@ -97,20 +92,20 @@ $(document).ready(function() {
 
             /* Abrimos la base de datos */
               $conx = mysql_connect ("localhost","root","");
-              if (!$conx) die ("Error al abrir la base <br/>". mysql_error()); 
-              mysql_select_db("saie") OR die("Connection Error to Database");    
+              if (!$conx) die ("Error al abrir la base <br/>". mysql_error());
+              mysql_select_db("saie") OR die("Connection Error to Database");
 
             /* Realizamos la consulta SQL */
-            $sql="SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion , 
-            alimentos.Alimento , ingrersos.cantidad_alimento , ingrersos.descripcion , ingrersos.Fecha 
-            FROM donadores 
-            INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
-            INNER JOIN categorias ON categorias.id = ingrersos.id_categoria 
+            $sql="SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion ,
+            alimentos.Alimento , ingrersos.cantidad_alimento , ingrersos.descripcion , ingrersos.Fecha
+            FROM donadores
+            INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
+            INNER JOIN categorias ON categorias.id = ingrersos.id_categoria
             INNER JOIN alimentos ON alimentos.Alimento = ingrersos.id_alimento";
             $result= mysql_query($sql) or die(mysql_error());
             if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
 
-            /* Desplegamos cada uno de los registros dentro de una tabla */  
+            /* Desplegamos cada uno de los registros dentro de una tabla */
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
@@ -131,21 +126,12 @@ $(document).ready(function() {
 
    <br>
     </div>
-        
+
 
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
-        </div>
-    </footer>
+    <?php include "resources/views/footer.php"; ?>
 
 </body>
 
-<?php
-    }else{
-        echo '<script> window.location="login.php"; </script>';
-    }
-?>
 </html>

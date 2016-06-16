@@ -1,10 +1,5 @@
 <?php
-    session_start();
-    include 'ser.php';
-
-    if (isset($_SESSION['usuario'] )) {
-        echo "";
-    
+    require "resources/config.php";
 ?>
 
 <!doctype html>
@@ -33,7 +28,7 @@
 <body>
     <div class="container">
         <!-- Static navbar -->
-        
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -90,9 +85,9 @@
         </div>
 
         <h2 class="col-sm-11">Gestión de Productos </h2>
-        
+
         <div class="row">
-            
+
             <a href="gestionmateriales.php" role="button">
                 <div class="col-sm-6 ">
                 <div class="thumbnail panel-primary">
@@ -108,7 +103,7 @@
                 <div class="thumbnail panel-primary">
                     <div class="caption">
                         <h1>Alimentos</h1>
-                     
+
                     </div>
                 </div></a>
             </div>
@@ -117,17 +112,8 @@
 
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
-        </div>
-    </footer>
+    <?php include "resources/views/footer.php"; ?>
 
 </body>
 
-<?php
-    }else{
-        echo '<script> window.location="login.php"; </script>';
-    }
-?>
 </html>
