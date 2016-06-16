@@ -65,15 +65,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -104,7 +99,7 @@
             /* Realizamos la consulta SQL */
             $sql="select * from egresos";
             $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
+            if(mysql_num_rows($result)==0);
 
             /* Desplegamos cada uno de los registros dentro de una tabla */  
             echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
@@ -118,8 +113,7 @@
                      <th class='text-center'> Nombre </th>
                      <th class='text-center'> Cantidad </th>
                      <th class='text-center'> Descripcion </th>
-                     <th> Fecha de I </th>
-                     <th></th>
+                     <th class='text-center'> Fecha </th>
                   </tr>";
 
             /*Y ahora todos los registros */
@@ -131,9 +125,6 @@
                      <td> $row[cantidad] bs. </td>
                      <td> $row[descripcion] </td>
                      <td> $row[fecha] </td>
-                     <td><form method='post' action='eliminar.php'> \n
-                    <input type='submit' value='Eliminar' class='btn btn-default text-center'>
-                    </form></td>
                   </tr>";
             }
             echo "</table>";

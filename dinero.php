@@ -64,15 +64,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+                    
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -91,21 +86,30 @@
         </div><br>
         <div class="row">
             <div class="col-md-offset-4">
-                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="verificardonante.php">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="regdinero.php">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Contribuyente:</label>
                         <input type="text" name="cedula" class="form-control" placeholder="Cedula del Contribuyente" required autocomplete="off">
-                        <br><button class="btn btn-primary">Confirmar</button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre del Contribuyente"  autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Apeliido</label>
-                        <input type="text" class="form-control" placeholder="Apellido del Contribuyente"  autocomplete="off">
-                    </div>
+                    <label for="exampleInputEmail1">Tipo de Arancel</label>
+
+                    <select class="form-control"  name="estipendio">
+                            <optgroup label="Aranceles"><option>Seleccionar Arancel</option>
+                        <?php
+                        include 'ser.php';
+
+                            $sql= "SELECT * FROM Estipendio  ORDER BY estipendio.Tipo ASC";
+ 
+                            $result = mysql_query($sql);
+                            while($campo = mysql_fetch_array($result)) {
+                            echo "<option name='estipendio' value='".$campo['id']."'>".$campo['Tipo']."</option>";
+                            }
+ 
+                        ?>
+                        </optgroup>
+                    </select><br>
+
                     <div class="form-group">
                         <label for="exampleInputPassword1">Cantidad</label>
                         <input type="number" name="cantidad" class="form-control" placeholder="Cantidad de Dinero"  autocomplete="off">
@@ -115,7 +119,10 @@
                         <label for="exampleInputEmail1">Descripción</label><br>
                         <textarea class="span4 form-control" name="mensaje" cols="48" rows="5"  placeholder="Descripción de la Donación" ></textarea>
                     </div>
-                    <a href="ingresos.php" class="btn btn-default">Cancelar</a>
+
+                    <button type="submit" name="enviar" class="btn btn-default">Registar</button>
+                    <button type="reset" class="btn btn-default">Limpiar</button>
+
                 </form>
             </div>
         </div>

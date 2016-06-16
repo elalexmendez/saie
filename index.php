@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
+    
+
 
 </head>
 
@@ -68,13 +70,8 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
+    
+                    <ul class="nav navbar-nav">
                         <li>
                             <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
@@ -82,11 +79,12 @@
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
                         </li>
                     </ul>
-                    <br><br>
+                    
                     <?php
                         include 'ser.php';
 
-                        echo "<br><h5>Usuario: $_SESSION[usuario]</h5>"
+                        echo "<br><h5 class='navbar-text pull-right'>Usuario: $_SESSION[usuario]</h5><br> 
+                        "
                     ?>
 
                 </div>

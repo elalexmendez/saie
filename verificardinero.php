@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Inventario Alimentos</title>
+    <title>Control de Ingresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
 
 </head>
 
@@ -51,13 +50,13 @@
                         <li>
                             <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="ingresos.php"> <i class="fa fa-sign-in"></i> Ingresos</a>
                         </li>
                         <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
                         <li>
@@ -66,7 +65,7 @@
 
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
                         <li>
                             <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
@@ -79,53 +78,81 @@
             </div>
             <!--/.container-fluid -->
         </nav>
+        
+        <br><br>
 
-        <br>
-        <br>
-        <br>
-        <br>
 
-        <div class="row col-md-6 col-md-offset-3 custyle">
         <?php
-            /* Abrimos la base de datos */
-              include 'ser.php';    
 
-            /* Realizamos la consulta SQL */
-            $sql="select * from alimentos";
-            $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
+        include 'ser.php';
 
-            /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table text-center table-bordered' cellpadding=3 cellspacing=0>";
+        if (isset($_POST['cedula'])) {
+        $Cedula = $_POST['cedula'];
+        $sql = mysql_query("SELECT * FROM donadores WHERE id='".$_POST['cedula']."'");
+        if (mysql_num_rows($sql)>0) {
+        $row = mysql_fetch_array($sql);
+        $_POST["cedula"] == $row['id'];
 
-            /*Priemro los encabezados*/
-             echo " <tr>
-                      <th class='text-center' colspan=3> Inventario de Alimentos </th>
-                    <tr>
+        $sql2= 'SELECT * FROM Estipendio  ORDER BY estipendio.Tipo ASC';
+        $result2 = mysql_query($sql2);
+        $row2 = mysql_fetch_array($result2);
+        
+        echo "
+        <div class='col-md-20 text-center' >
+            <h3>Control de Ingresos de Dinero</h3>
+        </div><br>
+        <div class='row'>
+            <div class='col-md-offset-4'>
+                <form method='post' class='col-sm-6 panel panel-primary panel-body' action='regdinero.php'>
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Contribuyente:</label>
+                        <input type='text' name='cedula' value='$row[id]' class='form-control' placeholder='Cedula del Contribuyente' required autocomplete='off'>
+                    </div>
 
-                     <th class='text-center'> Codigo </th>
-                     <th class='text-center'> Nombre </th>
-                     <th class='text-center'> Cantidad </th>
-                  </tr>";
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Nombre</label>
+                        <input type='text' class='form-control' value='$row[Nombre]' placeholder='Nombre del Contribuyente' required autocomplete='off'>
+                    </div>
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Apeliido</label>
+                        <input type='text' class='form-control' value='$row[Apellido]' placeholder='Apellido del Contribuyente' required autocomplete='off'>
+                    </div>
 
-            /*Y ahora todos los registros */
-            while($row=mysql_fetch_array($result))
-            {
-             echo "<tr scope='row'>
-                     <td class='text-center'> $row[id] </td>
-                     <td class='text-center'> $row[Alimento] </td>
-                     <td class='text-center'> $row[Cantidad] </td>
-                  </tr>";
-            }
-            echo "</table>";
-            
+                    <label for='exampleInputEmail1'>Tipo de Estipendio</label>
+
+                    <select class='form-control'  name='estipendio' >
+                            <optgroup label='Estipendios'><option>Seleccionar Estipendio</option>
+                    
+                             <option name='estipendio'>$row2[Tipo]</option>';
+
+                        </optgroup>
+                    </select><br>
+
+                    <div class='form-group'>
+                        <label for='exampleInputPassword1'>Cantidad</label>
+                        <input type='number' name='cantidad' class='form-control' placeholder='Cantidad de Dinero' required autocomplete='off'>
+                    </div>
+                    
+                    <div class='form-group'>
+                        <label for='exampleInputEmail1'>Descripción</label><br>
+                        <textarea class='span4 form-control' name='mensaje' cols='48' rows='5'  placeholder='Descripción de la Donación' ></textarea>
+                    </div>
+                    <button type='submit' name='enviar' class='btn btn-default'>Registar</button>
+                    <button type='reset' class='btn btn-default'>Limpiar</button>
+                </form>
+            </div>
+        </div>";
+    }else {
+        echo '<script> alert("El Contribuyente no esta Registrado."); </script>';
+        echo '<script> window.location="contribuyente.php"; </script>';
+    }
+
+}
 
         ?>
-        </div>
-
     </div>
 
-    <footer class="footer">
+     <footer class="footer">
         <div class="container">
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
@@ -143,9 +170,10 @@
     </script>
 </body>
 
-
 <?php
     }else{
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+
+<html>

@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sistema Administrativo</title>
+    <title>Modificar Ingresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -46,7 +46,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li>
                             <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
                         </li>
                         <li>
@@ -63,15 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                        <li class="active">
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -84,6 +79,12 @@
         </nav>
 
         <br><br>
+
+        <div>
+            <ul class="pager">
+                <li><a href="moditipo.php">Anterior</a></li>
+            </ul>
+        </div>
 
         <h2 class="col-sm-11">Modificar Ingresos </h2>
         <div class="row">
@@ -98,7 +99,7 @@
 
             </div>
 
-            <a href="#" role="button">
+            <a href="modimateriales.php" role="button">
                 <div class="col-sm-4 ">                
                     <div class="thumbnail panel-primary">
                     <div class="caption">

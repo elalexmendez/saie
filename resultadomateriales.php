@@ -99,7 +99,7 @@ $(document).ready(function() {
 
         <div>
             <ul class="pager">
-                <li><a href="fechadinero.php">Anterior</a></li>
+                <li><a href="fechamateriales.php">Anterior</a></li>
             </ul>
         </div>
 
@@ -112,10 +112,10 @@ $(document).ready(function() {
              <tr>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Estipendio </th>
+                <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha </th>
+                <th width='100' class='text-center'> Fecha de Ingreso </th>
                 <th class="text-center">Imprimir</th>
             </tr>
         </thead>
@@ -123,10 +123,10 @@ $(document).ready(function() {
             <tr>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Estipendio </th>
+                <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha </th>
+                <th width='100' class='text-center'> Fecha de Ingreso </th>
                 <th class="text-center">Imprimir</th>
             </tr>
         </tfoot>
@@ -136,19 +136,16 @@ $(document).ready(function() {
                 include 'ser.php';
                 if (isset($_POST['enviar'])) {
                     
-                    $fecha = $_POST['desde'];
-                    $fecha = $_POST['hasta'];
                     /* Realizamos la consulta SQL */
-                    $sql = "SELECT ingrersos.id as id_ingreso, dinero.id as id_dinero, donadores.Nombre , donadores.Apellido , estipendio.Tipo , 
-                    dinero.cantidad , ingrersos.descripcion , ingrersos.Fecha 
-                    FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-                    INNER JOIN estipendio ON estipendio.id = ingrersos.id_estipendio
-                    INNER JOIN dinero ON dinero.id = ingrersos.id_dinero  
+                    $sql = "SELECT ingrersos.id as id_ingreso, mteriales.material as id_material, donadores.Nombre , donadores.Apellido , categorias.clasificacion , mteriales.cantidad , ingrersos.descripcion , ingrersos.Fecha FROM donadores 
+                    INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
+                    INNER JOIN mteriales ON mteriales.material = ingrersos.id_material 
+                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria
                     WHERE ingrersos.Fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."' "; 
 
-                    $result = mysql_query($sql);
-             
-                        if(mysql_num_rows($result)==0);
+                    $result = mysql_query($sql,$conexion);
+
+                    if(mysql_num_rows($result)==0);
 
                              /*Y ahora todos los registros */
                              while($row=mysql_fetch_array($result))
@@ -156,8 +153,8 @@ $(document).ready(function() {
                              echo "<tr>
                                  <td class='text-center'> $row[Nombre] </td>
                                  <td class='text-center'> $row[Apellido] </td>
-                                 <td class='text-center'> $row[Tipo] </td>
-                                 <td class='text-center'> $row[cantidad] Bs. </td>
+                                 <td class='text-center'> $row[id_material] </td>
+                                 <td class='text-center'> $row[cantidad] </td>
                                  <td width='400' class='text-center'> $row[descripcion] </td>
                                  <td class='text-center'> $row[Fecha] </td>
                                  <td><a href='pdffechadinero.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>

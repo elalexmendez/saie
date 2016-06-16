@@ -63,15 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -109,7 +104,7 @@
                     <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
                         <h3>Materiales</h3>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a> 
+                        <p><a href="consultamateriales.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>

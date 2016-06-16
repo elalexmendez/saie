@@ -9,11 +9,11 @@
 	$sql = "DELETE  FROM ingrersos WHERE id = '$id' ";
 	$result = mysql_query($sql) or die("error");
 
-	$sql = "DELETE  FROM dinero WHERE id = '$id2' ";
+	$sql = "DELETE  FROM mteriales WHERE id = '$id2' ";
 	$result = mysql_query($sql) or die("error");
 	
 
-	echo"<script type=\"text/javascript\">alert('Se ha eliminado su registro'); window.location='modidinero.php';</script>";
+	echo"<script type=\"text/javascript\">alert('Se ha eliminado su registro'); window.location='modimateriales.php';</script>";
 
 
 ?>

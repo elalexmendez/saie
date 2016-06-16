@@ -63,15 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -104,11 +99,17 @@
                     <div class="form-group">
                         <?php
                             include 'ser.php';
-                            $sql = "SELECT cantidad FROM totaldinero";
+                            $sql = "SELECT SUM(cantidad) as total_suma FROM dinero";
                             $result = mysql_query($sql) or die(mysql_error());
-                            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
-                            while($row=mysql_fetch_array($result)) {
-                            echo "<label for='exampleInputPassword1'>Cantidad disponible: $row[cantidad] bs.</label>";
+                            $row = mysql_fetch_array($result);
+
+                            $sql = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos";
+                            $result = mysql_query($sql) or die(mysql_error());
+                            $row2 = mysql_fetch_array($result);
+
+                            $disponible = $row['total_suma'] - $row2['total_suma2'];
+                            {
+                            echo "<label for='exampleInputPassword1'>Cantidad disponible: $disponible bs.</label>";
                         };
                         ?>
                         <input type="number" name="cantidad" class="form-control" placeholder="Cantidad a Egresar" required autocomplete="off">

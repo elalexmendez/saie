@@ -8,12 +8,12 @@
 ?>
 
 <!doctype html>
-<html lang="es">
+<html class="no-js" lang="">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Inventario Alimentos</title>
+    <title>Gestion de Usuario</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,13 +26,27 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
+    <link rel="stylesheet" href="assets/css/dataTable.css"/>
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+    <script>
+
+$(document).ready(function() {
+    oTable = $('#example').dataTable({
+    
+
+    });
+
+} );
+
+</script>
 
 </head>
 
 <body>
     <div class="container">
         <!-- Static navbar -->
-
+        
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -57,7 +71,7 @@
                         <li>
                             <a href="egresos.php"> <i class="fa fa-sign-out"></i> Egresos</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="inventario.php"> <i class="fa fa-list-alt"></i> Inventario</a>
                         </li>
                         <li>
@@ -67,7 +81,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
+                        <li class="active">
                             <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
@@ -80,47 +94,68 @@
             <!--/.container-fluid -->
         </nav>
 
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br>
 
-        <div class="row col-md-6 col-md-offset-3 custyle">
+        <div>
+            <ul class="pager">
+                <li><a href="administracion.php">Anterior</a></li>
+            </ul>
+        </div>
+
+        <h2 class="col-sm-11">Gestión de Usuario </h2>
+
+        <div class="row col-md-10 col-md-offset-1 custyle">
+
+        <table id="example" class="display text-center" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="text-center">Cedula</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Tipo de Usuario</th>
+                <th class="text-center">Nombre de Usuario</th>
+                <th class="text-center">Contraseña</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th class="text-center">Cedula</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Tipo de Usuario</th>
+                <th class="text-center">Nombre de Usuario</th>
+                <th class="text-center">Contraseña</th>
+            </tr>
+        </tfoot>
+
         <?php
+
             /* Abrimos la base de datos */
               include 'ser.php';    
 
             /* Realizamos la consulta SQL */
-            $sql="select * from alimentos";
-            $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
-
-            /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table text-center table-bordered' cellpadding=3 cellspacing=0>";
-
-            /*Priemro los encabezados*/
-             echo " <tr>
-                      <th class='text-center' colspan=3> Inventario de Alimentos </th>
-                    <tr>
-
-                     <th class='text-center'> Codigo </th>
-                     <th class='text-center'> Nombre </th>
-                     <th class='text-center'> Cantidad </th>
-                  </tr>";
+            $sql = "SELECT * FROM usuarios";
+            $result1 = mysql_query($sql);
+            $row = mysql_num_rows($result1);
 
             /*Y ahora todos los registros */
-            while($row=mysql_fetch_array($result))
+            while($row=mysql_fetch_array($result1))
             {
-             echo "<tr scope='row'>
-                     <td class='text-center'> $row[id] </td>
-                     <td class='text-center'> $row[Alimento] </td>
-                     <td class='text-center'> $row[Cantidad] </td>
+             echo "<tr>
+                     <td> $row[cedula] </td>
+                     <td> $row[appellidos] </td>
+                     <td> $row[nombres] </td>
+                     <td> $row[cargo] </td>
+                     <td> $row[usuario] </td>
+                     <td> $row[password] </td>
                   </tr>";
             }
             echo "</table>";
-            
 
         ?>
+    </div>
+        
+
         </div>
 
     </div>
@@ -131,21 +166,11 @@
         </div>
     </footer>
 
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
 </body>
-
 
 <?php
     }else{
         echo '<script> window.location="login.php"; </script>';
     }
 ?>
+</html>

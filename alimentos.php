@@ -26,30 +26,44 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+
     <script type="text/javascript">
-        // Last updated 2006-02-21
-        function addRowToTable()
+
+        $(document).ready(function() {
+
+    var MaxInputs       = 8; //Número Maximo de Campos
+    var contenedor       = $("#contenedor"); //ID del contenedor
+    var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
+
+    //var x = número de campos existentes en el contenedor
+    var x = $("#contenedor div").length + 1;
+    var FieldCount = x-1; //para el seguimiento de los campos
+
+    $(AddButton).click(function (e) {
+        if(x <= MaxInputs) //max input box allowed
         {
-        // just get some info and elements
-          var tbl = document.getElementById('tblSample');
-          var rows = tbl.getElementsByTagName('tr');
-          var l = rows.length;
-          var lastRow = rows[l-1];
-          var clone = lastRow.cloneNode(true);
-        // now to fill in row data.
-          clone.getElementsByTagName('select')[0].selectedIndex = lastRow.getElementsByTagName('select')[0].selectedIndex;
-        // and finaly fix up names
-          clone.getElementsByTagName('select')[0].name = 'action'+l;
-        // add the row
-          tbl.appendChild(clone);
+            FieldCount++;
+            //agregar campo
+            $(contenedor).append('<div><input type="text" name="nombre[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Nombre '+ FieldCount +'"/><input type="text" name="cantidad[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Cantidad '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
+            x++; //text box increment
+
+        }   
+
+        return false;
+    });
+
+    $("body").on("click",".eliminar", function(e){ //click en eliminar campo
+        if( x > 1 ) {
+            $(this).parent('div').remove(); //eliminar el campo
+            x--;
         }
-        function removeRowFromTable()
-        {
-          var tbl = document.getElementById('tblSample');
-          var lastRow = tbl.rows.length;
-          if (lastRow > 1) tbl.deleteRow(lastRow - 1);
-        }
+        return false;
+    });
+});
+
     </script>
+
 </head>
 
 <body>
@@ -88,15 +102,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -115,7 +124,7 @@
         </div><br>
 
         <div class="row">    
-            <div class="col-md-offset-4 ">
+            <div class="col-md-offset-4 " >
               
                     <form method="post" class="col-sm-6 panel panel-primary panel-body" action="aliprueba.php">
 
@@ -124,35 +133,33 @@
                             <input type="text" name="cedula" class="form-control" placeholder="Cedula" required autocomplete="off" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
                         </div>
 
-                        <label for="exampleInputEmail1">Alimento</label>
-                        <select class="form-control" name="nombre">
-                            <optgroup label="Alimentos"><option>Seleccionar Alimento</option>
-                        <?php
-                        include 'ser.php';
+                        <label for="exampleInputEmail1">Alimento</label><br>
 
-                            $sql= "SELECT Alimento FROM alimentos";
- 
-                            $result = mysql_query($sql);
-                            while($campo = mysql_fetch_array($result)) {
-                            echo "<option name='alimento' value='".$campo['Alimento']."'>".$campo['Alimento']."</option>";
-                            }
- 
-                        ?>
-                        </optgroup>
-                        </select><br>
+                         <a id="agregarCampo" class="btn btn-default" href="#">Agregar Campo</a><br>
 
+                        <div id="contenedor">
+                            <div class="added">
+                                
+                            <select class="form-control" id="campo_1"   name="nombre[]">
+                                    <optgroup label="Alimentos"><option>Seleccionar Alimento</option>
+                                <?php
+                                include 'ser.php';
 
-                        
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Cantidad</label>
-                            <input type="text" name="cantidad" class="form-control" placeholder="Cantidad de Alimento" required autocomplete="off" onChange="setOptions(document.toolsubmit.action1.options[document.toolsubmit.action1.selectedIndex].value);">
+                                    $sql= "SELECT Alimento FROM alimentos";
+         
+                                    $result = mysql_query($sql);
+                                    while($campo = mysql_fetch_array($result)) {
+                                    echo "<option name='alimento' value='".$campo['Alimento']."'>".$campo['Alimento']."</option>";
+                                    }
+         
+                                ?>
+                                </optgroup>
+                                <br>
+                                <input type="text" name="nombre[]" id="campo_1" class="form-control" placeholder="Nombre"/><br>
+                                <input type="text" name="cantidad[]" id="campo_1" class="form-control" placeholder="Cantidad"/><br>
+                                <a href="#" class="eliminar">&times;</a>
+                            </div>
                         </div>
-                        </td>
-                        </tr>
-                        </table>
-
-                        <input type="button" class="btn btn-default" value="Agregar" onclick="addRowToTable();" />
-                        <input type="button" class="btn btn-default" value="Remover" onclick="removeRowFromTable();" /><br><br>
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Descripción</label><br>
@@ -172,10 +179,6 @@
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
     </footer>
-
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

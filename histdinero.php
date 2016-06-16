@@ -20,12 +20,26 @@
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
+    <!-- DataTable -->
+    <link rel="stylesheet" href="assets/css/dataTable.css"/>
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+    <script>
+
+$(document).ready(function() {
+    oTable = $('#example').dataTable({
+
+    });
+
+} );
+
+</script>
+
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
 </head>
 
@@ -65,15 +79,9 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -94,49 +102,67 @@
             </ul>
         </div>
 
+         <h2 class="col-sm-11">Reusultado</h2>
+
+        <div class="row col-md-10 col-md-offset-1 custyle">
+
+        <table id="example" class="display text-center" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Nombre </th>
+                <th class='text-center'> Apellido </th>
+                <th width='100' class='text-center'> Arancel </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha</th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Nombre </th>
+                <th class='text-center'> Apellido </th>
+                <th class='text-center'> Arancel </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha </th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </tfoot>
+
         <?php
 
             /* Abrimos la base de datos */
               include 'ser.php';    
 
             /* Realizamos la consulta SQL */
+
             $sql = "SELECT * FROM ingrersos";
-            $result = mysql_query($sql);
+            $result1 = mysql_query($sql);
 
-            $sql="SELECT ingrersos.id , donadores.Nombre , donadores.Apellido , categorias.clasificacion , dinero.cantidad , 
-            ingrersos.descripcion , ingrersos.Fecha 
-            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id 
-            INNER JOIN dinero ON dinero.cantidad = ingrersos.id_dinero 
-            INNER JOIN categorias ON categorias.id = ingrersos.id_categoria";
-            $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
-
-            /* Desplegamos cada uno de los registros dentro de una tabla */  
-            echo "<table class='table table-striped custab text-center table-bordered'  cellpadding=4 cellspacing=0>";
-
-            /*Priemro los encabezados*/
-             echo "<tr>
-                     <th class='text-center' colspan=6> Datos de Ingresos </th>
-
-                   <tr>
-                     <th class='text-center'> Nombre </th>
-                     <th class='text-center'> Apellido </th>
-                     <th class='text-center'> Clasificacion </th>
-                     <th class='text-center'> Cantidad </th>
-                     <th class='text-center'> Descripcion </th>
-                     <th class='text-center'> Fecha de I </th>
-                  </tr>";
+            $sql="SELECT ingrersos.id as id_ingreso, dinero.id as id_dinero, donadores.Nombre , donadores.Apellido , estipendio.Tipo , dinero.cantidad , 
+            estipendio.Tipo , ingrersos.descripcion , ingrersos.Fecha 
+            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
+            INNER JOIN estipendio ON estipendio.id = ingrersos.id_estipendio
+            INNER JOIN dinero ON dinero.id = ingrersos.id_dinero ORDER BY 'id' ASC";
+            $result= mysql_query($sql);
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
              echo "<tr>
+                     <td> $row[id_dinero] </td>
                      <td> $row[Nombre] </td>
                      <td> $row[Apellido] </td>
-                     <td> $row[clasificacion] </td>
+                     <td> $row[Tipo] </td>
                      <td> $row[cantidad] bs. </td>
                      <td width='400'> $row[descripcion] </td>
                      <td> $row[Fecha] </td>
+                     <td><a href='pdfdinero.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
+
+                    </td>
                   </tr>";
             }
             echo "</table>";
@@ -152,17 +178,6 @@
             &copy; Iglesia Nuestra Señora del Rosario de Aranzazu
         </div>
     </footer>
-
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
 </body>
 
 <?php

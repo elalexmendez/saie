@@ -116,20 +116,21 @@
 
             <br>
             <br>
+            
 
             <div>
                 <ul class="pager">
-                    <li><a href="aliconsulta.php">Anterior</a></li>
+                    <li><a href="consultamateriales.php">Anterior</a></li>
                 </ul>
             </div>
 
             <div class="col-md-20 text-center">
-                <h3>Consultas por Fecha de Ingresos de Alimentos</h3>
+                <h3>Consultas por Fecha de Ingresos de Dinero</h3>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-offset-4">
-                    <form method="post" class="col-sm-6 panel panel-primary panel-body" action="resultadoalimentos.php">
+                    <form method="post" class="col-sm-6 panel panel-primary panel-body" action="resultadomateriales.php">
 
                         <div class="form-horizontal">
 

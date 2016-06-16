@@ -2,7 +2,7 @@
     session_start();
     include 'ser.php';
 
-    if ($_SESSION['usuario'] =="Admin")  {
+    if (isset($_SESSION['usuario'] ))  {
         echo "";
     
 ?>
@@ -52,7 +52,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li>
                             <a href="index.php"> <i class="fa fa-home"></i> Inicio</a>
                         </li>
                         <li>
@@ -69,26 +69,15 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                        <li class="active">
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
                         </li>
                     </ul>
-                    <br><br>
-                    <?php
-                        include 'ser.php';
-
-                        echo "<br><h5>Usuario: $_SESSION[usuario]</h5>"
-                    ?>
 
                 </div>
                 <!--/.nav-collapse -->
@@ -105,8 +94,8 @@
                     <img src="assets/images/admin.png" alt="...">
                     <div class="caption">
                         <h3>Administracion</h3>
-                        <p>Control de Ingresos de los Recursos y Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a>
+                        <p>Administracion SAIE</p>
+                        <p><a href="administracion.php" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
 
@@ -115,9 +104,9 @@
                 <div class="thumbnail panel-primary">
                     <img src="assets/images/modificar.png" alt="...">
                     <div class="caption">
-                        <h3>Modificación</h3>
-                        <p>Control de Egreros de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <p><a href="modi.php" class="btn btn-primary" role="button">Ir</a> 
+                        <h3>Modificación - Eliminar</h3>
+                        <p>Modificar o Eliminar los Registros SAIE</p>
+                        <p><a href="moditipo.php" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
             </div>
@@ -127,7 +116,7 @@
                     <img src="assets/images/manual.png" alt="...">
                     <div class="caption">
                         <h3>Manual de Usuario</h3>
-                        <p>Descripción y Verificación de todos los Bienes de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
+                        <p>Ayuda de uso SAIE</p>
                         <p><a href="#" class="btn btn-primary" role="button">Ir</a> 
                     </div>
                 </div>
@@ -157,7 +146,7 @@
 
 <?php
     }else{
-        echo "<script type=\"text/javascript\">alert('No puedes acceder a esta pagina'); window.location='index.php';</script>";
+        echo '<script> window.location="login.php"; </script>';
     }
 ?>
 </html>

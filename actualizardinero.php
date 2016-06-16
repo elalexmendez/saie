@@ -63,15 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -92,17 +87,25 @@
         <?php
         include 'ser.php';
 
-        $id = $_GET['id'];
+        $id_dinero = $_GET['id_dinero'];
 
-        $sql = "SELECT * FROM ingrersos WHERE id = $id";
+        $id_ingreso = $_GET['id_ingreso'];
+
+        $sql = "SELECT * FROM dinero WHERE id = '$id_dinero' ";
         $result = mysql_query($sql);
-        $row = mysql_fetch_array($result);
+        $row2 = mysql_fetch_array($result);
 
+
+        $sql1 = "SELECT * FROM ingrersos WHERE id = '$id_ingreso' ";
+        $result1 = mysql_query($sql1);
+        $row = mysql_fetch_array($result1);
+        
         echo "<div class='row'>
             <div class='col-md-offset-4'>
                 <form method='POST' action='actdinero.php' class='col-sm-6 panel panel-primary panel-body'>
                 	<div class='form-group'>
                         <input type='hidden' name='id' value='$row[id]' class='form-control'  required autocomplete='off'>
+                        <input  type='hidden' name='id2' value='$row2[id]' class='form-control'  required autocomplete='off'>
                     </div>
 
                     <div class='form-group'>

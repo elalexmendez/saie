@@ -63,15 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -85,8 +80,7 @@
 
         <br>
         <br>
-        <br>
-        <br>
+       
 
         <div class="row col-md-10 col-md-offset-1 custyle">
         <?php
@@ -110,8 +104,6 @@
                      <th class='text-center'> Cantidad </th> 
                      <th class='text-center'> Descripcion </th>
                      <th class='text-center'> Fecha de Ingreso </th>
-                     <th></th>
-                     <th></th>
                   </tr>
                   </thead>";
 
@@ -124,11 +116,6 @@
                      <td class='text-center'> $row[cantidad] </td>
                      <td class='text-center'> $row[descripcion] </td>
                      <td class='text-center'> $row[fecha] </td>
-                     <td><form method='POST' action='eliminar.php'> \n
-                         <input type='hidden' name='eliminar' value='$row[id]' />
-                    <input type='submit' name='id' value='Eliminar' class='btn btn-default text-center'>
-                    </form></td>
-                    <td><a href='actualizarmateriales.php?id=".$row['id']."'>Actualizar</a></td>
                   </tr>";
             }
             echo "</table>";

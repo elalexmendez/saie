@@ -65,15 +65,10 @@
                         </li>
 
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar ">
-                        </div>
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#"> <i class="fa fa-wrench"></i> Configuración</a>
+                            <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>
                         <li>
                             <a href="logout.php"> <i class="fa fa-external-link"></i> Salir</a>
@@ -99,8 +94,15 @@
             <?php
 
     include 'ser.php';
-        $sql = ("SELECT * FROM totaldinero");
-        $result = mysql_query($sql) or die("Error");
+        $sql = "SELECT SUM(cantidad) as total_suma FROM dinero";
+        $result = mysql_query($sql) or die(mysql_error());
+        $row = mysql_fetch_array($result);
+
+        $sql = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos";
+        $result = mysql_query($sql) or die(mysql_error());
+        $row2 = mysql_fetch_array($result);
+        
+        $disponible = $row['total_suma'] - $row2['total_suma2'];
  
             if(mysql_num_rows($result));
 
@@ -116,12 +118,11 @@
                   </tr>";
 
                  /*Y ahora todos los registros */
-                 while($row=mysql_fetch_array($result))
-                    {
+                  
                  echo "<tr>
-                     <td class='text-center'> $row[cantidad] Bs. </td>
+                     <td class='text-center'> $disponible Bs. </td>
                      </tr>";
-                 }
+                     
                 echo "</table>";
 
 ?>
