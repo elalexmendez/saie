@@ -64,7 +64,7 @@
 
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
                         <li>
                             <a href="configuracion.php"> <i class="fa fa-wrench"></i> Configuración</a>
                         </li>

@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Gestion de Usuario</title>
+    <title>Gestion de Contribuyente</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Gestión de Usuario </h2>
+        <h2 class="col-sm-11">Gestión de Contribuyente </h2>
 
         <div class="row col-md-10 col-md-offset-1 custyle">
 
@@ -112,6 +112,9 @@ $(document).ready(function() {
                 <th class="text-center">Cedula</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
+
             </tr>
         </thead>
         <tfoot>
@@ -119,6 +122,8 @@ $(document).ready(function() {
                 <th class="text-center">Cedula</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
             </tr>
         </tfoot>
 
@@ -130,7 +135,6 @@ $(document).ready(function() {
             /* Realizamos la consulta SQL */
             $sql = "SELECT * FROM donadores";
             $result1 = mysql_query($sql);
-            $row = mysql_fetch_array($result1);
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result1))
@@ -139,6 +143,11 @@ $(document).ready(function() {
                      <td> $row[id] </td>
                      <td> $row[Nombre] </td>
                      <td> $row[Apellido] </td>
+                      <td><a href='actualizarcontribuyente.php?id=".$row['id']."'><span title='Editar' class='fa fa-pencil-square-o btn btn-primary btn-xs'></span></a></td>
+                     <td><form method='POST' action='eliminarcontribuyente.php'> \n
+                         <input type='hidden' name='eliminar' value='$row[id]' />
+                         <button type='submit' class='fa fa-trash-o fa-lg btn btn-danger btn-xs' title='Eliminar' ></<button>
+                    </form></td>
                   </tr>";
             }
             echo "</table>";

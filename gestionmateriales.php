@@ -2,7 +2,7 @@
     session_start();
     include 'ser.php';
 
-    if ($_SESSION['usuario'] =="Admin" ) {
+    if (isset($_SESSION['usuario'])) {
         echo "";
     
 ?>
@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Administracion</title>
+    <title>Gestion de Materiales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,6 +25,22 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/dataTable.css"/>
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+    <script>
+
+$(document).ready(function() {
+    oTable = $('#example').dataTable({
+    
+
+    });
+
+} );
+
+</script>
+
 </head>
 
 <body>
@@ -82,41 +98,57 @@
 
         <div>
             <ul class="pager">
-                <li><a href="configuracion.php">Anterior</a></li>
+                <li><a href="gestionproductos.php">Anterior</a></li>
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Adiministración </h2>
-        <div class="row">
-            
-            <a href="gestiondeusuarios.php" role="button">
-                <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <div class="caption">
-                        <h3>Gestión de Usuarios</h3>
-                    </div>
-                </div></a>
+        <h2 class="col-sm-11">Gestión de Materiales </h2>
 
-            </div>
+        <div class="row col-md-10 col-md-offset-1 custyle">
 
-            <a href="gestiondecontribuyente.php" role="button">
-                <div class="col-sm-4 ">                
-                    <div class="thumbnail panel-primary">
-                    <div class="caption">
-                        <h3>Gestion de Contribuyente</h3>
-                    </div>
-                </div></a> 
-            </div>
+        <table id="example" class="display text-center" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="text-center">Codigo</th>
+                <th class="text-center">Material</th>
+                <th class="text-center">Cantidad</th>
+                <th class="text-center">Descripcion</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th class="text-center">Codigo</th>
+                <th class="text-center">Material</th>
+                <th class="text-center">Cantidad</th>
+                <th class="text-center">Descripcion</th>
+            </tr>
+        </tfoot>
 
-            <a href="gestionproductos.php" role="button">
-                <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <div class="caption">
-                        <h3>Gestion de Productos</h3>
-                     
-                    </div>
-                </div></a>
-            </div>
+        <?php
+
+            /* Abrimos la base de datos */
+              include 'ser.php';    
+
+            /* Realizamos la consulta SQL */
+            $sql = "SELECT * FROM mteriales";
+            $result1 = mysql_query($sql);
+            $row = mysql_num_rows($result1);
+
+            /*Y ahora todos los registros */
+            while($row=mysql_fetch_array($result1))
+            {
+             echo "<tr>
+                     <td> $row[id] </td>
+                     <td> $row[material] </td>
+                     <td> $row[cantidad] </td>
+                     <td> $row[descripcion] </td>
+                  </tr>";
+            }
+            echo "</table>";
+
+        ?>
+    </div>
+        
 
         </div>
 
@@ -128,22 +160,11 @@
         </div>
     </footer>
 
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-            interval: 5000 //changes the speed
-        })
-    </script>
-
 </body>
 
 <?php
     }else{
-        echo "<script type=\"text/javascript\">alert('No puedes acceder a esta pagina'); window.location='configuracion.php';</script>";
+        echo '<script> window.location="login.php"; </script>';
     }
 ?>
 </html>
