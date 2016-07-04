@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -29,10 +34,12 @@
 
         <?php include "resources/views/navbar.php"; ?>
 
+        <br><br><br>
+
         <div class="row col-md-6 col-md-offset-3 custyle">
         <?php
             /* Abrimos la base de datos */
-              include 'ser.php';
+              require "resources/config.php";
 
             /* Realizamos la consulta SQL */
             $sql="select * from alimentos";
@@ -77,3 +84,9 @@
 
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

@@ -1,5 +1,13 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -48,9 +56,11 @@ $(document).ready(function() {
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Gestión de Materiales </h2>
-
         <div class="row col-md-10 col-md-offset-1 custyle">
+
+            <h2 class="col-sm-11">Gestión de Materiales </h2>
+        
+        <a href="nuevomaterial.php" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i> Agregar Material </a><br><br><br><br><br><br>
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
@@ -58,7 +68,8 @@ $(document).ready(function() {
                 <th class="text-center">Codigo</th>
                 <th class="text-center">Material</th>
                 <th class="text-center">Cantidad</th>
-                <th class="text-center">Descripcion</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
             </tr>
         </thead>
         <tfoot>
@@ -66,17 +77,18 @@ $(document).ready(function() {
                 <th class="text-center">Codigo</th>
                 <th class="text-center">Material</th>
                 <th class="text-center">Cantidad</th>
-                <th class="text-center">Descripcion</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
             </tr>
         </tfoot>
 
         <?php
 
             /* Abrimos la base de datos */
-              include 'ser.php';
+            require "resources/config.php";
 
             /* Realizamos la consulta SQL */
-            $sql = "SELECT * FROM mteriales";
+            $sql = "SELECT * FROM materiales";
             $result1 = mysql_query($sql);
             $row = mysql_num_rows($result1);
 
@@ -87,7 +99,11 @@ $(document).ready(function() {
                      <td> $row[id] </td>
                      <td> $row[material] </td>
                      <td> $row[cantidad] </td>
-                     <td> $row[descripcion] </td>
+                     <td><a href='actualizarmaterial.php?id=".$row['id']."'><span title='Editar' class='fa fa-pencil-square-o btn btn-primary btn-xs'></span></a></td>
+                     <td><form method='POST' action='eliminarmateriales.php'> \n
+                         <input type='hidden' name='eliminar' value='$row[id]' />
+                         <button type='submit' class='fa fa-trash-o fa-lg btn btn-danger btn-xs' title='Eliminar' ></<button>
+                    </form></td>
                   </tr>";
             }
             echo "</table>";
@@ -103,5 +119,12 @@ $(document).ready(function() {
     <?php include "resources/views/footer.php"; ?>
 
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>
 
 </html>

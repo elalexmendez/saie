@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -77,3 +82,9 @@
 
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

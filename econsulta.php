@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consultas de Egresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,38 +35,38 @@
             <ul class="pager">
                 <li><a href="consultas.php">Anterior</a></li>
             </ul>
-        </div
+        </div>
 
+        <h2 class="col-sm-11">Modulo a Consultar </h2>
         <div class="row">
-            <h2 class="col-sm-11">Consulta sobre Egresos</h2>
-            <div class="col-sm-4 ">
+
+            <a href="edinconsulta.php" role="button">
+                <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/dinero.jpg" alt="...">
                     <div class="caption">
-                        <h3>Dinero</h3>
-                        <p><a href="edinconsulta.php" class="btn btn-primary" role="button">Ir</a>
+                        <h1>Dinero</h1>
                     </div>
-                </div>
+                </div></a>
 
             </div>
-            <div class="col-sm-4 ">
-                <div class="thumbnail panel-primary">
-                    <img src="assets/images/materiales.jpg" alt="...">
+
+            <a href="econsultamateriales.php" role="button">
+                <div class="col-sm-4 ">
+                    <div class="thumbnail panel-primary">
                     <div class="caption">
-                        <h3>Materiales</h3>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a>
+                        <h1>Materiales</h1>
                     </div>
-                </div>
+                </div></a>
             </div>
 
-            <div class="col-sm-4 ">
+            <a href="econsultaalimentos.php" role="button">
+                <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
-                        <h3>Alimentos</h3>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a>
+                        <h1>Alimentos</h1>
+
                     </div>
-                </div>
+                </div></a>
             </div>
 
         </div>
@@ -75,3 +80,10 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
+

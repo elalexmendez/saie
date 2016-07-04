@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Modificar Materiales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,7 +28,6 @@
 
 $(document).ready(function() {
     oTable = $('#example').dataTable({
-
 
     });
 
@@ -42,74 +46,73 @@ $(document).ready(function() {
 <body>
     <div class="container">
         <?php include "resources/views/navbar.php"; ?>
+
         <div>
             <ul class="pager">
                 <li><a href="consultamateriales.php">Anterior</a></li>
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Reusultado</h2>
+        <h2 class="col-sm-11">Resultado de Ingresos de Materiales</h2>
 
         <div class="row col-md-10 col-md-offset-1 custyle">
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
              <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Clasificacion </th>
                 <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha </th>
-                <th class="text-center">Imprimir</th>
+                <th width='100' class='text-center'> Fecha  </th>
             </tr>
         </thead>
         <tfoot>
             <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
                 <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha</th>
-                <th class="text-center">Imprimir</th>
+                <th width='100' class='text-center'> Fecha </th>
             </tr>
         </tfoot>
+
 
         <?php
 
             /* Abrimos la base de datos */
-              $conx = mysql_connect ("localhost","root","");
-              if (!$conx) die ("Error al abrir la base <br/>". mysql_error());
-              mysql_select_db("saie") OR die("Connection Error to Database");
+              require 'resources/config.php';
 
             /* Realizamos la consulta SQL */
-            $sql="SELECT ingrersos.id as id_ingreso, mteriales.material as id_material, donadores.Nombre , donadores.Apellido , categorias.clasificacion , mteriales.cantidad , ingrersos.descripcion , ingrersos.Fecha FROM donadores
-                    INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-                    INNER JOIN mteriales ON mteriales.material = ingrersos.id_material
-                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria ORDER BY Fecha ASC";
-            $result= mysql_query($sql);
+
+            $sql="SELECT *, m.id as ida , m.cantidad as can FROM ingresos i JOIN ingresos_materiales m ON m.ingreso_id = i.id 
+            JOIN materiales mate on mate.id = m.material_id 
+            JOIN donadores ON donadores.id = donador_id";
+            $result= mysql_query($sql) or die(mysql_error());
             if(mysql_num_rows($result)==0);
+
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
              echo "<tr>
+                     <td> $row[ida] </td>
                      <td> $row[Nombre] </td>
                      <td> $row[Apellido] </td>
-                     <td> $row[id_material] </td>
-                     <td> $row[cantidad] </td>
-                     <td> $row[descripcion] </td>
-                     <td> $row[Fecha] </td>
-                     <td><a href='pdfalimentos.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
-
-                    </td>
+                     <td> $row[material] </td>
+                     <td> $row[can] </td>
+                     <td width='400'> $row[descripcion] </td>
+                     <td> $row[datetime] </td>
                   </tr>";
             }
             echo "</table>";
 
         ?>
+    </div>
 
 </div>
 
@@ -117,3 +120,9 @@ $(document).ready(function() {
 
     <?php include "resources/views/footer.php"; ?>
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

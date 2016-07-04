@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consultas</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,24 +31,29 @@
     <div class="container">
         <?php include "resources/views/navbar.php"; ?>
 
+        <br><br>
+
+        <h2 class="col-sm-11">Seleccionar </h2>
         <div class="row">
-            <h2 class="col-sm-11">Consultas de Ingresos y Egresos</h2>
-            <div class="col-sm-6 ">
+
+            <a href="iconsulta.php" role="button">
+                <div class="col-sm-6 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/materiales.jpg" alt="...">
                     <div class="caption">
-                       <a class="btn btn-primary" href="iconsulta.php" role="button">Ingresos</a>
+                        <h1>Ingresos</h1>
                     </div>
-                </div>
+                </div></a>
+
             </div>
 
-            <div class="col-sm-6 ">
+            <a href="econsulta.php" role="button">
+                <div class="col-sm-6 ">
                 <div class="thumbnail panel-primary">
-                    <img src="assets/images/alimentos.jpg" alt="...">
                     <div class="caption">
-                        <a class="btn btn-primary" href="econsulta.php" role="button">Egresos</a>
+                        <h1>Egresos</h1>
+
                     </div>
-                </div>
+                </div></a>
             </div>
 
         </div>
@@ -57,3 +67,9 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

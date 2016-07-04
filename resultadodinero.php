@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consulta Dinero</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,13 +49,14 @@ $(document).ready(function() {
 
         <div>
             <ul class="pager">
-                <li><a href="fechadinero.php">Anterior</a></li>
+                <li><a href="dinconsulta.php">Anterior</a></li>
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Reusultado</h2>
 
         <div class="row col-md-10 col-md-offset-1 custyle">
+
+            <h2 class="col-sm-11">Resultado de Ingresos por Fecha</h2>
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
@@ -78,18 +84,20 @@ $(document).ready(function() {
 
             <?php
 
-                include 'ser.php';
+                require "resources/config.php";
+                
                 if (isset($_POST['enviar'])) {
 
                     $fecha = $_POST['desde'];
                     $fecha = $_POST['hasta'];
                     /* Realizamos la consulta SQL */
-                    $sql = "SELECT ingrersos.id as id_ingreso, dinero.id as id_dinero, donadores.Nombre , donadores.Apellido , estipendio.Tipo ,
-                    dinero.cantidad , ingrersos.descripcion , ingrersos.Fecha
-                    FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-                    INNER JOIN estipendio ON estipendio.id = ingrersos.id_estipendio
-                    INNER JOIN dinero ON dinero.id = ingrersos.id_dinero
-                    WHERE ingrersos.Fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."' ";
+                    $sql = "SELECT *, ingresos.id as id_ingreso, ingresos_dinero.id as id_dinero, 
+                    donadores.Nombre , donadores.Apellido , ingresos_dinero.cantidad , ingresos.descripcion , 
+                    ingresos.datetime , estipendio.Tipo 
+                    FROM donadores INNER JOIN ingresos ON donador_id = donadores.id 
+                    INNER JOIN ingresos_dinero ON ingreso_id = ingresos.id 
+                    INNER JOIN estipendio ON estipendio.id = ingresos_dinero.estipendio_id
+                    WHERE ingresos.datetime BETWEEN '".$_POST['desde']." ' AND '".$_POST['hasta']."' ";
 
                     $result = mysql_query($sql);
 
@@ -104,20 +112,47 @@ $(document).ready(function() {
                                  <td class='text-center'> $row[Tipo] </td>
                                  <td class='text-center'> $row[cantidad] Bs. </td>
                                  <td width='400' class='text-center'> $row[descripcion] </td>
-                                 <td class='text-center'> $row[Fecha] </td>
-                                 <td><a href='pdffechadinero.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
+                                 <td class='text-center'> $row[datetime] </td>
+                                 <td><a href='pdfdinero.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
 
                     </td>
                                  </tr>";
                              }
-                            echo "</table>";
+                            echo "</table><br><br><br><br>";
 
                  }
             ?>
+        </div>
+
+
+
+        <?php
+
+            $sql4 = "SELECT SUM(cantidad) as total 
+            FROM ingresos_dinero JOIN ingresos ON ingresos.id = ingresos_dinero.ingreso_id 
+            WHERE ingresos.datetime BETWEEN '".$_POST['desde']." ' AND '".$_POST['hasta']."' ";
+            $result4 = mysql_query($sql4);
+            $row4 = mysql_fetch_array($result4);
+        ?>
+
+
+        <div class="row">
+            <div class="col-md-offset-4">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="sdinero.php">
+                    <div class="form-group"><br>
+                        <label for="exampleInputEmail1">Cantidad Total Ingresada en la Fecha: <?= $row4['total'] ?> Bs.</label>
+                    </div>
+            </div>
         </div>
 
     </div>
 
     <?php include "resources/views/footer.php"; ?>
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
 

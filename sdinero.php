@@ -1,16 +1,16 @@
 <?php
 
-include 'ser.php';
+include 'resources/config.php';
 
 	$canti = $_POST['cantidad'];
 
-	$sql = "SELECT SUM(cantidad) as total_suma FROM dinero";
+	$sql = "SELECT SUM(cantidad) as total_suma FROM ingresos_dinero";
 	$result = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_array($result);
 
-	$sql = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos";
-	$result = mysql_query($sql) or die(mysql_error());
-	$row2 = mysql_fetch_array($result);
+	$sql2 = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos_dinero";
+	$result2 = mysql_query($sql2) or die(mysql_error());
+	$row2 = mysql_fetch_array($result2);
 	
 	$disponible = $row['total_suma'] - $row2['total_suma2'];
 
@@ -20,12 +20,17 @@ include 'ser.php';
 		
 	}
 	else { 
-	$sql = "INSERT INTO egresos (titulo , id_categoria , cantidad_dinero , descripcion , fecha) " .
-		"VALUES ('{$_POST['nombre']}' , '1' , '{$_POST['cantidad']}' , '{$_POST['mensaje']}' , '".date(" Y-m-d")."') ";
-	$result = mysql_query($sql);
+	$sql4 = "INSERT INTO egresos (titulo , nombre , descripcion , type ) " .
+		"VALUES ('{$_POST['titulo']}' , '{$_POST['nombre']}' , '{$_POST['descripcion']}' , 'dinero') ";
+	$result4 = mysql_query($sql4);
 
-	$sql = "UPDATE  totaldinero SET cantidad = cantidad -  '{$_POST['cantidad']}' ";
-	$result = mysql_query($sql);
-	echo"<script type=\"text/javascript\">alert('Se han registrado sus datos'); window.location='edinero.php';</script>";
+	$dinero = "SELECT id FROM egresos ORDER BY id DESC LIMIT 1";
+    $resultado = mysql_query($dinero);
+    $row2 = mysql_fetch_array($resultado);
+
+	$sql1 = "INSERT INTO egresos_dinero (egreso_id , cantidad_dinero) " .
+		"VALUES ( '$row2[id]' , '$canti') ";
+	$result = mysql_query($sql1);
+	echo"<script type=\"text/javascript\"> window.location='egreso_dinero.php';</script>";
 	}
 	?>

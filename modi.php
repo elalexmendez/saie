@@ -1,5 +1,13 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Modificar Ingresos</title>
+    <title>Modificar o Eliminar Ingresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,7 +40,7 @@
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Modificar Ingresos </h2>
+        <h2 class="col-sm-11">Modificar o Eliminar Ingresos </h2>
         <div class="row">
 
             <a href="modidinero.php" role="button">
@@ -54,7 +62,7 @@
                 </div></a>
             </div>
 
-            <a href="#" role="button">
+            <a href="modialimentos.php" role="button">
                 <div class="col-sm-4 ">
                 <div class="thumbnail panel-primary">
                     <div class="caption">
@@ -75,5 +83,12 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>
 
 </html>

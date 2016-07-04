@@ -1,5 +1,5 @@
 <?php
-	include 'ser.php';
+	require "resources/config.php";
 
 	$cedula = $_POST['cedula'];
 
@@ -13,8 +13,8 @@
 
     }else {
 
-    	$sql = "INSERT INTO donadores (id , Nombre ,  Apellido) " . 
-		" VALUES ($cedula , '{$_POST['nombre']}' , '{$_POST['apellido']}')";
+    	$sql = "INSERT INTO donadores (id , tipo , Nombre ,  Apellido) " . 
+		" VALUES ($cedula , '{$_POST['radio']}' , '{$_POST['nombre']}' , '{$_POST['apellido']}')";
 		$result = mysql_query($sql);
 		echo "<script type=\"text/javascript\">alert('Se ha registrado el Contribuyente'); window.location='contribuyente.php';</script>";
 

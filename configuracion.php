@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -62,7 +67,7 @@
                     <div class="caption">
                         <h3>Manual de Usuario</h3>
                         <p>Ayuda de uso SAIE</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Ir</a>
+                        <p><a href="manual.pdf" target="_blank" class="btn btn-primary" role="button">Ir</a>
                     </div>
                 </div>
             </div>
@@ -77,5 +82,12 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
+
 
 </html>

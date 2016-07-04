@@ -1,20 +1,20 @@
 
 <?php
-require('assets/fpdf.php');
-require('assets/ufpdf/ufpdf.php');
+require('assets/fpdf/fpdf.php');
 
 
-include 'ser.php';
+
+require 'resources/config.php';
 
 $id1 = $_GET['id_ingreso'];
 
-$sql="SELECT ingrersos.id as id_ingreso, dinero.id as id_dinero, donadores.id , donadores.Nombre, 
-            estipendio.Tipo , donadores.Apellido , dinero.cantidad , 
-            ingrersos.descripcion , ingrersos.Fecha, dinero.mensaje 
-            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-            INNER JOIN estipendio ON estipendio.id = ingrersos.id_estipendio
-            INNER JOIN dinero ON dinero.id = ingrersos.id_dinero 
-            WHERE ingrersos.id = '$id1' ";
+$sql="SELECT *, ingresos.id as id_ingreso, ingresos_dinero.id as id_dinero, 
+            donadores.Nombre , donadores.Apellido , ingresos_dinero.cantidad , 
+            ingresos.descripcion , ingresos.datetime , estipendio.Tipo 
+            FROM donadores INNER JOIN ingresos ON donador_id = donadores.id 
+            INNER JOIN ingresos_dinero ON ingreso_id = ingresos.id 
+            INNER JOIN estipendio ON estipendio.id = ingresos_dinero.estipendio_id 
+            WHERE ingresos_dinero.id = '$id1' ";
             $result= mysql_query($sql);
 
 class PDF extends FPDF
@@ -68,7 +68,7 @@ while ($fila = mysql_fetch_array($result)) {
     // numero de control
 
     $Numero = $fila ['id_dinero'];
-    $pdf->Cell(151);
+    $pdf->Cell(150);
     $pdf->Cell(25,2,$Numero,0,0,'R',0);
 
     // final numero de control
@@ -77,14 +77,14 @@ while ($fila = mysql_fetch_array($result)) {
 
     $pdf->SetFont('Arial','B',10);
     $pdf->Ln(10);
-    $pdf->Cell(144);
-    $pdf->Cell(10,4,'Fecha:',0,0,'L',0);
-    $pdf->Ln(0);
+    $pdf->Cell(142);
+    $pdf->Cell(10,4,'Fecha          Hora',0,0,'L',0);
+    $pdf->Ln(5);
 
 
     $pdf->SetFont('Arial','',10);
-    $Fecha = $fila['Fecha'];
-    $pdf->Cell(154);
+    $Fecha = $fila['datetime'];
+    $pdf->Cell(147);
     $pdf->Cell(25,4,$Fecha,0,0,'C',0);
 
     // final fecha
@@ -117,7 +117,7 @@ while ($fila = mysql_fetch_array($result)) {
 
 
     $pdf->SetFont('Arial','',10);
-    $Cedula = $fila['id'];
+    $Cedula = $fila['donador_id'];
     $pdf->Cell(136);
     $pdf->Cell(25,6,$Cedula,0,0,'C',0);
 

@@ -1,5 +1,5 @@
 <?php 
-	include 'ser.php';
+	require 'resources/config.php';
 
 	$cedula = $_POST['cedula'];
 	$nombre = $_POST['nombre'];

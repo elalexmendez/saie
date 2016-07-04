@@ -1,6 +1,6 @@
 <?php
 
-	include 'ser.php';
+	require 'resources/config.php';
 
 	/* realizamos la consulta */
 	$id = $_POST['eliminar'];

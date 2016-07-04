@@ -1,6 +1,15 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
+
 
 <!doctype html>
 <html lang="es">
@@ -8,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Modificar Dinero</title>
+    <title>Modificar o Eliminar Ingresos de Dinero</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -51,11 +60,12 @@ $(document).ready(function() {
 
         <h2 class="col-sm-11">Modificar o Eliminar Ingresos de Dinero</h2>
 
-        <div class="row col-md-10 col-md-offset-1 custyle">
+        <div class="row col-md-12 col-md-offset- custyle">
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
             <tr>
+                <th class="text-center">Codigo</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
                 <th class="text-center">Arancel</th>
@@ -69,6 +79,7 @@ $(document).ready(function() {
         </thead>
         <tfoot>
             <tr>
+                <th class="text-center">Codigo</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
                 <th class="text-center">Arancel</th>
@@ -84,38 +95,41 @@ $(document).ready(function() {
         <?php
 
             /* Abrimos la base de datos */
-              include 'ser.php';
+              require "resources/config.php";
 
             /* Realizamos la consulta SQL */
-            $sql = "SELECT * FROM ingrersos";
-            $result1 = mysql_query($sql);
-            $row = mysql_fetch_array($result1);
 
-            $sql = "SELECT * FROM dinero";
-            $result = mysql_query($sql);
-            $row2 = mysql_fetch_array($result);
+            $sql1 = "SELECT * FROM ingresos";
+            $result1 = mysql_query($sql1);
+            $row1 = mysql_fetch_array($result1);
 
-            $sql="SELECT ingrersos.id as id_ingreso, dinero.id as id_dinero, donadores.Nombre , donadores.Apellido , dinero.cantidad ,
-            estipendio.Tipo , ingrersos.descripcion , ingrersos.Fecha
-            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-            INNER JOIN dinero ON dinero.id = ingrersos.id_dinero
-            INNER JOIN estipendio ON estipendio.id = ingrersos.id_estipendio";
-            $result= mysql_query($sql) or die(mysql_error());
+            $sql2 = "SELECT * FROM ingresos_dinero";
+            $result2 = mysql_query($sql2);
+            $row2 = mysql_fetch_array($result2);
+
+            $sql="SELECT *, ingresos.id as id_ingreso, ingresos_dinero.id as id_dinero, 
+            donadores.Nombre , donadores.Apellido , ingresos_dinero.cantidad , 
+            ingresos.descripcion , ingresos.datetime , estipendio.Tipo 
+            FROM donadores INNER JOIN ingresos ON donador_id = donadores.id 
+            INNER JOIN ingresos_dinero ON ingreso_id = ingresos.id 
+            INNER JOIN estipendio ON estipendio.id = ingresos_dinero.estipendio_id ORDER BY ingresos_dinero.id ASC";
+            $result= mysql_query($sql);
             if(mysql_num_rows($result)==0);
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
              echo "<tr>
+                     <td> $row[id_dinero] </td>
                      <td> $row[Nombre] </td>
                      <td> $row[Apellido] </td>
                      <td> $row[Tipo] </td>
                      <td> $row[cantidad] bs. </td>
                      <td width='400'> $row[descripcion] </td>
-                     <td> $row[Fecha] </td>
+                     <td> $row[datetime] </td>
                      <td><a href='actualizardinero.php?id_ingreso=".$row['id_ingreso']."&id_dinero=".$row['id_dinero']."'><span title='Editar' class='fa fa-pencil-square-o btn btn-primary btn-xs'></span></a></td>
                      <td><form method='POST' action='eliminardinero.php'> \n
-                         <input type='hidden' name='eliminar' value='$row[id_ingreso]' />
+                         <input type='hidden' name='eliminar' value='$row[id]' />
                          <input type='hidden' name='eliminar2' value='$row2[id]' />
                          <button type='submit' class='fa fa-trash-o fa-lg btn btn-danger btn-xs' title='Eliminar' ></<button>
                     </form></td>
@@ -135,5 +149,12 @@ $(document).ready(function() {
 
     <?php include "resources/views/footer.php"; ?>
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>
 
 </html>

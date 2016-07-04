@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,82 +13,141 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consulta Dinero</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
+     <!-- DataTable -->
+    <link rel="stylesheet" href="assets/css/dataTable.css"/>
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+    <script>
+
+$(document).ready(function() {
+    oTable = $('#example').dataTable({
+
+
+    });
+
+} );
+
+</script>
+
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
     <div class="container">
         <?php include "resources/views/navbar.php"; ?>
 
-
         <div>
             <ul class="pager">
-                <li><a href="fechadinero.php">Anterior</a></li>
+                <li><a href="edinconsulta.php">Anterior</a></li>
             </ul>
         </div>
 
-        <div class="row col-md-8 col-md-offset-2 custyle">
+
+        <div class="row col-md-10 col-md-offset-1 custyle">
+
+            <h2 class="col-sm-11">Resultado de Egresos por Fecha</h2>
+
+        <table id="example" class="display text-center" cellspacing="0" width="100%">
+        <thead>
+             <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Titulo </th>
+                <th class='text-center'> Responsable </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha </th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Titulo </th>
+                <th class='text-center'> Responsable </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha </th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </tfoot>
+
             <?php
 
-                include 'ser.php';
+                require "resources/config.php";
+                
                 if (isset($_POST['enviar'])) {
 
                     $fecha = $_POST['desde'];
                     $fecha = $_POST['hasta'];
                     /* Realizamos la consulta SQL */
-                    $sql = "SELECT * FROM egresos WHERE fecha BETWEEN  '".$_POST['desde']."' AND '".$_POST['hasta']."'";
-                    $result = mysql_query($sql) or die("Error");
+                    $sql ="SELECT *, egresos.id as id_egreso, egresos_dinero.id as id_dinero 
+                    FROM egresos JOIN egresos_dinero ON egresos_dinero.egreso_id = egresos.id
+                    WHERE egresos.datatime BETWEEN '".$_POST['desde']."    ' AND '".$_POST['hasta']."' ";
+                    $result = mysql_query($sql);
 
-                        if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
-
-                             /* Desplegamos cada uno de los registros dentro de una tabla */
-                            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
-
-                            /*Priemro los encabezados*/
-                             echo "<tr>
-                                    <th class='text-center' colspan=5> Resultado de Consulta por Fecha </th>
-                                   <tr>
-                                     <th class='text-center'> ID </th>
-                                     <th class='text-center'> Nombre </th>
-                                     <th class='text-center'> Cantidad </th>
-                                     <th class='text-center'> Descripcion </th>
-                                     <th class='text-center'> Fecha de Ingreso </th>
-                                  </tr>";
+                        if(mysql_num_rows($result)==0);
 
                              /*Y ahora todos los registros */
                              while($row=mysql_fetch_array($result))
                                 {
                              echo "<tr>
-                                 <td class='text-center' align='right'> $row[id] </td>
+                                 <td class='text-center'> $row[id_dinero] </td>
+                                 <td class='text-center'> $row[titulo] </td>
                                  <td class='text-center'> $row[nombre] </td>
-                                 <td class='text-center'> $row[cantidad] Bs. </td>
-                                 <td class='text-center'> $row[mensaje] </td>
-                                 <td class='text-center'> $row[fecha] </td>
+                                 <td class='text-center'> $row[cantidad_dinero] Bs. </td>
+                                 <td width='400' class='text-center'> $row[descripcion] </td>
+                                 <td class='text-center'> $row[datatime] </td>
+                                 <td><a href='#'><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
+
+                    </td>
                                  </tr>";
                              }
-                            echo "</table>";
+                            echo "</table><br><br><br><br>";
 
                  }
             ?>
         </div>
 
+
+
+        <?php
+
+            $sql4 = "SELECT SUM(cantidad_dinero) as total 
+            FROM egresos_dinero JOIN egresos ON egresos.id = egresos_dinero.egreso_id 
+            WHERE egresos.datatime BETWEEN '".$_POST['desde']." ' AND '".$_POST['hasta']."' ";
+            $result4 = mysql_query($sql4);
+            $row4 = mysql_fetch_array($result4);
+        ?>
+
+
+        <div class="row">
+            <div class="col-md-offset-4">
+                <form method="post" class="col-sm-6 panel panel-primary panel-body" action="sdinero.php">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Cantidad Total Egresada en la Fecha: <?= $row4['total'] ?> Bs.</label>
+                    </div>
+            </div>
+        </div>
+
     </div>
 
     <?php include "resources/views/footer.php"; ?>
-
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
+

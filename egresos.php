@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -46,7 +51,7 @@
                     <div class="caption">
                         <h3>Materiales</h3>
                         <p>Control de Egresos de los Materiales de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                       <a class="btn btn-primary" href="#" role="button">Materiales</a>
+                       <a class="btn btn-primary" href="materiales_egresos.php" role="button">Materiales</a>
                     </div>
                 </div>
             </div>
@@ -57,7 +62,7 @@
                     <div class="caption">
                         <h3>Alimentos</h3>
                         <p>Control de Egresos de los Alimentos de la Iglesia Nuestra Señora del Rosario de Aranzazu</p>
-                        <a class="btn btn-primary" href="ealimentos.php" role="button">Alimentos</a>
+                        <a class="btn btn-primary" href="alimentos_egresos.php" role="button">Alimentos</a>
                     </div>
                 </div>
             </div>
@@ -75,3 +80,9 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

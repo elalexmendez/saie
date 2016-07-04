@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consulta Alimentos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -43,52 +48,52 @@ $(document).ready(function() {
 
         <div>
             <ul class="pager">
-                <li><a href="fechaalimentos.php">Anterior</a></li>
+                <li><a href="aliconsulta.php">Anterior</a></li>
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Reusultado</h2>
+        
 
         <div class="row col-md-10 col-md-offset-1 custyle">
+
+            <h2 class="col-sm-11">Resultado de Ingresos por Fecha</h2>
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
              <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Clasificacion </th>
                 <th class='text-center'> Alimento </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de I </th>
+                <th width='100' class='text-center'> Fecha </th>
             </tr>
         </thead>
         <tfoot>
             <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Clasificacion </th>
                 <th class='text-center'> Alimento </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de I </th>
+                <th width='100' class='text-center'> Fecha</th>
             </tr>
         </tfoot>
 
             <?php
 
-                include 'ser.php';
+                require "resources/config.php";
                 if (isset($_POST['enviar'])) {
 
                     $fecha = $_POST['desde'];
                     $fecha = $_POST['hasta'];
                     /* Realizamos la consulta SQL */
-                    $sql = "SELECT donadores.Nombre , donadores.Apellido , categorias.clasificacion ,
-                    alimentos.Alimento , ingrersos.cantidad_alimento , ingrersos.descripcion , ingrersos.Fecha
-                    FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria
-                    INNER JOIN alimentos ON alimentos.Alimento = ingrersos.id_alimento
-                    WHERE ingrersos.fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."'";
+                    $sql = "SELECT *, a.id as ida FROM ingresos i JOIN ingresos_alimentos a ON a.ingreso_id = i.id 
+                    JOIN alimentos ali on ali.id = a.alimento_id 
+                    JOIN donadores ON donadores.id = donador_id  
+                    WHERE i.datetime BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."'";
                     $result = mysql_query($sql);
 
                         if(mysql_num_rows($result)==0) ;
@@ -97,13 +102,13 @@ $(document).ready(function() {
                              while($row=mysql_fetch_array($result))
                                 {
                              echo "<tr>
+                                 <td> $row[ida] </td>
                                  <td> $row[Nombre] </td>
                                  <td> $row[Apellido] </td>
-                                 <td> $row[clasificacion] </td>
                                  <td> $row[Alimento] </td>
-                                 <td> $row[cantidad_alimento] </td>
+                                 <td> $row[cantidad] </td>
                                  <td> $row[descripcion] </td>
-                                 <td> $row[Fecha] </td>
+                                 <td> $row[datetime] </td>
                                  </tr>";
                              }
                             echo "</table>";
@@ -111,8 +116,14 @@ $(document).ready(function() {
                  }
             ?>
         </div>
+
     </div>
 
     <?php include "resources/views/footer.php"; ?>
 </body>
 
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

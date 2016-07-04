@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -26,40 +31,39 @@
     <div class="container">
         <?php include "resources/views/navbar.php"; ?>
 
-        <div class="row col-md-10 col-md-offset-1 custyle">
+        <br><br><br>
+
+        <div class="row col-md-6 col-md-offset-3 custyle">
+
+          <h2 class='col-sm-11'>Inventario de Materiales</h2>
+
         <?php
             /* Abrimos la base de datos */
-              include 'ser.php';
+            require "resources/config.php";  
 
             /* Realizamos la consulta SQL */
-            $sql="select * from mteriales";
+            $sql="select * from materiales";
             $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0) die("No hay registros para mostrar");
+            if(mysql_num_rows($result)==0);
 
             /* Desplegamos cada uno de los registros dentro de una tabla */
             echo "<table class='table text-center table-bordered' cellpadding=4 cellspacing=0>";
 
             /*Priemro los encabezados*/
-             echo " <h2 class='col-sm-11'>Inventario de Materiales</h2>
-
-                    <thead>
-                     <th class='text-center'> ID </th>
+             echo "<thead>
+                     <th class='text-center'> Codigo </th>
                      <th class='text-center'> Material </th>
                      <th class='text-center'> Cantidad </th>
-                     <th class='text-center'> Descripcion </th>
-                     <th class='text-center'> Fecha de Ingreso </th>
                   </tr>
                   </thead>";
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
-             echo "<tr scope='row'>
+             echo "<tr>
                      <td class='text-center'> $row[id] </td>
                      <td class='text-center'> $row[material] </td>
                      <td class='text-center'> $row[cantidad] </td>
-                     <td class='text-center'> $row[descripcion] </td>
-                     <td class='text-center'> $row[fecha] </td>
                   </tr>";
             }
             echo "</table>";
@@ -79,4 +83,8 @@
 
 </body>
 
-
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

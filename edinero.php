@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Control de Egresos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,16 +45,22 @@
                 <form method="post" class="col-sm-6 panel panel-primary panel-body" action="sdinero.php">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Egreso:</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre del Egreso" required autocomplete="off">
+                        <input type="text" name="titulo" class="form-control" placeholder="Titulo del Egreso" required autocomplete="off">
                     </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Responsable:</label>
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre y Apellido" required autocomplete="off">
+                    </div>
+
                     <div class="form-group">
                         <?php
-                            include 'ser.php';
-                            $sql = "SELECT SUM(cantidad) as total_suma FROM dinero";
+                            include 'resources/config.php';
+                            $sql = "SELECT SUM(cantidad) as total_suma FROM ingresos_dinero";
                             $result = mysql_query($sql) or die(mysql_error());
                             $row = mysql_fetch_array($result);
 
-                            $sql = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos";
+                            $sql = "SELECT SUM(cantidad_dinero) as total_suma2 FROM egresos_dinero";
                             $result = mysql_query($sql) or die(mysql_error());
                             $row2 = mysql_fetch_array($result);
 
@@ -63,10 +74,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label><br>
-                        <textarea class="span4 form-control" name="mensaje" cols="48" rows="5"  placeholder="Descripción del Egreso" ></textarea>
+                        <textarea class="span4 form-control" name="descripcion" cols="48" rows="5"  placeholder="Descripción del Egreso" ></textarea>
                     </div>
-                    <button type="submit" name="enviar" class="btn btn-default">Aceptar</button>
-                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
+                    <button type="submit" name="enviar" class="btn btn-success pull-right"><i class="fa fa-check" ></i> Aceptar</button>
                 </form>
             </div>
         </div>
@@ -79,5 +89,11 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
 
 <html>

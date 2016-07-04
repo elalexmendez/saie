@@ -1,6 +1,15 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
+
 
 <!doctype html>
 <html class="no-js" lang="">
@@ -45,7 +54,7 @@
 
             </div>
 
-            <a href="#" role="button">
+            <a href="modiegresos.php" role="button">
                 <div class="col-sm-6 ">
                 <div class="thumbnail panel-primary">
                     <div class="caption">
@@ -67,5 +76,12 @@
 
 
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="configuracion.php"; </script>';
+    }
+?>
 
 </html>

@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,14 +13,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consulta Materiales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-     <!-- DataTable -->
+    <!-- DataTable -->
     <link rel="stylesheet" href="assets/css/dataTable.css"/>
     <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
     <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
@@ -24,12 +29,12 @@
 $(document).ready(function() {
     oTable = $('#example').dataTable({
 
-
     });
 
 } );
 
 </script>
+
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -44,77 +49,80 @@ $(document).ready(function() {
 
         <div>
             <ul class="pager">
-                <li><a href="fechamateriales.php">Anterior</a></li>
+                <li><a href="consultamateriales.php">Anterior</a></li>
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Reusultado</h2>
-
         <div class="row col-md-10 col-md-offset-1 custyle">
+
+            <h2 class="col-sm-11">Resultado de Ingresos por Fecha</h2>
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
              <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
                 <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de Ingreso </th>
-                <th class="text-center">Imprimir</th>
+                <th width='100' class='text-center'> Fecha  </th>
             </tr>
         </thead>
         <tfoot>
             <tr>
+                <th class='text-center'> Codigo </th>
                 <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
                 <th class='text-center'> Material </th>
                 <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de Ingreso </th>
-                <th class="text-center">Imprimir</th>
+                <th width='100' class='text-center'> Fecha </th>
             </tr>
         </tfoot>
 
-            <?php
 
-                include 'ser.php';
-                if (isset($_POST['enviar'])) {
+        <?php
 
-                    /* Realizamos la consulta SQL */
-                    $sql = "SELECT ingrersos.id as id_ingreso, mteriales.material as id_material, donadores.Nombre , donadores.Apellido , categorias.clasificacion , mteriales.cantidad , ingrersos.descripcion , ingrersos.Fecha FROM donadores
-                    INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-                    INNER JOIN mteriales ON mteriales.material = ingrersos.id_material
-                    INNER JOIN categorias ON categorias.id = ingrersos.id_categoria
-                    WHERE ingrersos.Fecha BETWEEN '".$_POST['desde']."' AND '".$_POST['hasta']."' ";
+            /* Abrimos la base de datos */
+              require 'resources/config.php';
 
-                    $result = mysql_query($sql,$conexion);
+            /* Realizamos la consulta SQL */
 
-                    if(mysql_num_rows($result)==0);
+            $sql="SELECT *, m.id as ida , m.cantidad as can FROM ingresos i JOIN ingresos_materiales m ON m.ingreso_id = i.id 
+            JOIN materiales mate on mate.id = m.material_id 
+            JOIN donadores ON donadores.id = donador_id WHERE i.datetime BETWEEN '".$_POST['desde']." ' AND '".$_POST['hasta']."' ";
+            $result= mysql_query($sql) or die(mysql_error());
+            if(mysql_num_rows($result)==0);
 
-                             /*Y ahora todos los registros */
-                             while($row=mysql_fetch_array($result))
-                                {
-                             echo "<tr>
-                                 <td class='text-center'> $row[Nombre] </td>
-                                 <td class='text-center'> $row[Apellido] </td>
-                                 <td class='text-center'> $row[id_material] </td>
-                                 <td class='text-center'> $row[cantidad] </td>
-                                 <td width='400' class='text-center'> $row[descripcion] </td>
-                                 <td class='text-center'> $row[Fecha] </td>
-                                 <td><a href='pdffechadinero.php?id_ingreso=".$row['id_ingreso']."' target='_blank' ><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
 
-                    </td>
-                                 </tr>";
-                             }
-                            echo "</table>";
+            /*Y ahora todos los registros */
+            while($row=mysql_fetch_array($result))
+            {
+             echo "<tr>
+                     <td> $row[ida] </td>
+                     <td> $row[Nombre] </td>
+                     <td> $row[Apellido] </td>
+                     <td> $row[material] </td>
+                     <td> $row[can] </td>
+                     <td width='400'> $row[descripcion] </td>
+                     <td> $row[datetime] </td>
+                  </tr>";
+            }
+            echo "</table>";
 
-                 }
-            ?>
-        </div>
+        ?>
+    </div>
+
+</div>
 
     </div>
 
     <?php include "resources/views/footer.php"; ?>
 </body>
 
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

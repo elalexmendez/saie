@@ -1,5 +1,13 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -47,9 +55,12 @@ $(document).ready(function() {
             </ul>
         </div>
 
+
         <h2 class="col-sm-11">Gestión de Contribuyente </h2>
 
         <div class="row col-md-10 col-md-offset-1 custyle">
+
+        <a href="contribuyente.php" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i> Agregar Contribuyente </a><br><br><br>
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
@@ -75,7 +86,7 @@ $(document).ready(function() {
         <?php
 
             /* Abrimos la base de datos */
-              include 'ser.php';
+              require "resources/config.php";
 
             /* Realizamos la consulta SQL */
             $sql = "SELECT * FROM donadores";
@@ -108,5 +119,12 @@ $(document).ready(function() {
     <?php include "resources/views/footer.php"; ?>
 
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>
 
 </html>

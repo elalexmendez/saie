@@ -1,19 +1,26 @@
 <?php
 
-	include 'ser.php';
+	require 'resources/config.php';
 
 	/* realizamos la consulta */
 	$id = $_POST['eliminar'];
-	$id2 = $_POST['eliminar2'];
+	$cantidad = $_POST['cantidad'];
+	$material = $_POST['material'];
 
-	$sql = "DELETE  FROM ingrersos WHERE id = '$id' ";
-	$result = mysql_query($sql) or die("error");
 
-	$sql = "DELETE  FROM mteriales WHERE id = '$id2' ";
+	$sql = "DELETE  FROM ingresos_materiales WHERE id = '$id' ";
 	$result = mysql_query($sql) or die("error");
 	
+	$sql1 = "UPDATE materiales SET cantidad = cantidad - '$cantidad' WHERE material = '$material' ";
+	$resul1 = mysql_query($sql1);
 
-	echo"<script type=\"text/javascript\">alert('Se ha eliminado su registro'); window.location='modimateriales.php';</script>";
+	if ($result == true AND $resul1 == true) {
+		echo"<script type=\"text/javascript\">alert('Se ha eliminado su registro'); window.location='modimateriales.php';</script>";
+	}else{
+		echo "error";
+	}
+
+	
 
 
 ?>

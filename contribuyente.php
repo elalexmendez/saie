@@ -1,7 +1,11 @@
 <?php
-    require "resources/config.php";
-?>
+    session_start();
+    require 'resources/config.php';
 
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
+?>
 <!doctype html>
 <html lang="es">
 
@@ -33,9 +37,19 @@
         <div class="row">
             <div class="col-md-offset-4">
                 <form method="post" class="col-sm-6 panel panel-primary panel-body" action="contribuyenteregistro.php">
-
+                    <div class="funkyradio">
+                        <label for="exampleInputEmail1">Tipo de Identificación:</label>
+                        <div class="funkyradio-default">
+                            <input type="radio" name="radio" value="V" />
+                            <label for="radio1">V</label>
+                            <input type="radio" name="radio" value="E" />
+                            <label for="radio1">E</label>
+                            <input type="radio" name="radio" value="J" />
+                            <label for="radio1">J</label>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Cedula:</label>
+                        <label for="exampleInputEmail1">Numero de Identificación:</label>
                         <input type="number" name="cedula" class="form-control" placeholder="Cedula del Contribuyente" required autocomplete="off">
                     </div>
 
@@ -49,8 +63,7 @@
                         <input type="text" name="apellido" class="form-control" placeholder="Apellido del Contribuyente" required autocomplete="off">
                     </div>
 
-                    <button type="submit" name="enviar" class="btn btn-default">Registrar</button>
-                    <button type="reset" name="enviar" class="btn btn-default">Limpiar</button>
+                    <button type="submit" name="enviar" class="btn btn-success pull-right"><i class="fa fa-save"></i> Registrar</button>
                 </form>
             </div>
         </div>
@@ -64,5 +77,11 @@
 
 
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
 
 </html>

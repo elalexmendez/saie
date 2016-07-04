@@ -4,8 +4,9 @@ include 'ser.php';
 
 $canti = $_POST['cantidad'];
 $ali = $_POST['nombre'];
+$alimento = $_POST['alimento']
 
-$sql = "SELECT Cantidad FROM alimentos WHERE alimento = '$ali' ";
+$sql = "SELECT Cantidad FROM alimentos WHERE alimento = '$alimento' ";
 $result = mysql_query($sql);
 $row=mysql_fetch_array($result);
 

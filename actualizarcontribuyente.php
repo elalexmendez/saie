@@ -1,5 +1,13 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -31,7 +39,7 @@
         </div><br>
 
         <?php
-        include 'ser.php';
+        require "resources/config.php";
 
         $id = $_GET['id'];
 
@@ -72,5 +80,12 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
 
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>
 
 <html>

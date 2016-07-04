@@ -1,5 +1,13 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    $sql = "SELECT * FROM usuarios WHERE cargo = 'administrador' AND usuario = '$_SESSION[usuario]' ";
+    $result = mysql_query($sql);
+
+    if (mysql_num_rows($result) > 0) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Modificar Materiales</title>
+    <title>Eliminar Ingresos de Materiales</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,32 +56,32 @@ $(document).ready(function() {
             </ul>
         </div>
 
-        <h2 class="col-sm-11">Modificar o Eliminar Ingresos de Materiales</h2>
+        <h2 class="col-sm-11">Eliminar Ingresos de Materiales</h2>
 
         <div class="row col-md-10 col-md-offset-1 custyle">
 
         <table id="example" class="display text-center" cellspacing="0" width="100%">
         <thead>
              <tr>
-               <th class='text-center'> Nombre </th>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Clasificacion </th>
                 <th class='text-center'> Material </th>
+                <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de I </th>
-                <th class='text-center'> Editar </th>
+                <th width='100' class='text-center'> Fecha  </th>
                 <th class='text-center'> Eliminar </th>
-            </tr>>
+            </tr>
         </thead>
         <tfoot>
             <tr>
-               <th class='text-center'> Nombre </th>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Nombre </th>
                 <th class='text-center'> Apellido </th>
-                <th class='text-center'> Clasificacion </th>
                 <th class='text-center'> Material </th>
+                <th class='text-center'> Cantidad </th>
                 <th class='text-center'> Descripcion </th>
-                <th width='100' class='text-center'> Fecha de I </th>
-                <th class='text-center'> Editar </th>
+                <th width='100' class='text-center'> Fecha </th>
                 <th class='text-center'> Eliminar </th>
             </tr>
         </tfoot>
@@ -82,41 +90,32 @@ $(document).ready(function() {
         <?php
 
             /* Abrimos la base de datos */
-              include 'ser.php';
+              require 'resources/config.php';
 
             /* Realizamos la consulta SQL */
-            $sql = "SELECT * FROM ingrersos";
-            $result = mysql_query($sql);
 
-            $sql = "SELECT * FROM mteriales";
-            $result = mysql_query($sql);
-            $row2 = mysql_fetch_array($result);
-
-            $sql="SELECT ingrersos.id , donadores.Nombre , donadores.Apellido , categorias.clasificacion , mteriales.material ,
-            ingrersos.descripcion , ingrersos.Fecha
-            FROM donadores INNER JOIN ingrersos ON ingrersos.id_donadores = donadores.id
-            INNER JOIN mteriales ON mteriales.material = ingrersos.id_material
-            INNER JOIN categorias ON categorias.id = ingrersos.id_categoria";
+            $sql="SELECT *, m.id as ida , m.cantidad as can FROM ingresos i JOIN ingresos_materiales m ON m.ingreso_id = i.id 
+            JOIN materiales mate on mate.id = m.material_id 
+            JOIN donadores ON donadores.id = donador_id";
             $result= mysql_query($sql) or die(mysql_error());
             if(mysql_num_rows($result)==0);
-
-
 
 
             /*Y ahora todos los registros */
             while($row=mysql_fetch_array($result))
             {
              echo "<tr>
+                     <td> $row[ida] </td>
                      <td> $row[Nombre] </td>
                      <td> $row[Apellido] </td>
-                     <td> $row[clasificacion] </td>
                      <td> $row[material] </td>
+                     <td> $row[can] </td>
                      <td width='400'> $row[descripcion] </td>
-                     <td> $row[Fecha] </td>
-                     <td><a href='actualizarmateriales.php?id=".$row['id']."'><span title='Editar' class='fa fa-pencil-square-o btn btn-primary btn-xs'></span></a></td>
+                     <td> $row[datetime] </td>
                      <td><form method='POST' action='eliminarmaterial.php'> \n
-                         <input type='hidden' name='eliminar' value='$row[id]' />
-                         <input type='hidden' name='eliminar2' value='$row2[id]' />
+                         <input type='hidden' name='eliminar' value='$row[ida]' />
+                         <input type='hidden' name='cantidad' value='$row[can]' />
+                         <input type='hidden' name='material' value='$row[material]' />
                          <button type='submit' class='fa fa-trash-o fa-lg btn btn-danger btn-xs'></span></<button>
                     </form></td>
                   </tr>";
@@ -132,3 +131,10 @@ $(document).ready(function() {
 
     <?php include "resources/views/footer.php"; ?>
 </body>
+
+<?php
+    }else{
+         echo "<script> alert('Tu usuario no tiene permiso para acceder a esta pagina'); </script>";
+        echo '<script> window.location="index.php"; </script>';
+    }
+?>

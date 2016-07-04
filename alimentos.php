@@ -1,9 +1,31 @@
 <?php
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
+?>
+
+<?php
     require "resources/config.php";
 
     if(isset($_POST['action'])){
 
-        $sql = "INSERT INTO ingresos (donador_id, descripcion, type) VALUES (".$_POST['cedula'].", '".$_POST['descripcion']."', 'alimentos')";
+        if (isset($_POST['cedula'])) {
+    $Cedula = $_POST['cedula'];
+    $sql = mysql_query("SELECT * FROM donadores WHERE id='".$_POST['cedula']."'");
+    if (mysql_num_rows($sql)>0) {
+        $row = mysql_fetch_array($sql);
+        $_POST["cedula"] == $row['id'];
+
+        $sql = "INSERT INTO ingresos (donador_id, descripcion, type) VALUES ('".$_POST['cedula']."', '".$_POST['descripcion']."', 'alimentos')";
+
+         }
+    else{
+        echo '<script> alert("El Contribuyente no esta Registrado."); </script>';
+        echo '<script> window.location="contribuyente.php"; </script>';
+    }
 
         if (mysql_query($sql, $conexion)) {
             $ingreso_id = mysql_insert_id();
@@ -16,16 +38,20 @@
                 if (mysql_query($sql_ingresos, $conexion)) {
                     $sql_alimentos = "UPDATE alimentos SET Cantidad = Cantidad + {$c} WHERE id = {$a}";
                     mysql_query($sql_alimentos, $conexion);
+
+                    header("Location: ingreso_alimento.php?id=" . $ingreso_id);
+
                 }else{
                     echo "Error: " . $sql . "<br>" . mysql_error($conn);
                 }
             }
+            
         }else{
             echo "Error: " . $sql . "<br>" . mysql_error($conexion);
         }
-        header("Location: ingreso.php?id=" . $ingreso_id);
-        exit();
-    }
+       // header("Location: ingreso_alimento.php?id=" . $ingreso_id);
+       exit();
+    }}
 ?>
 <!doctype html>
 <html lang="es">
@@ -48,47 +74,17 @@
 
     <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
 
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-
-    var MaxInputs       = 8; //Número Maximo de Campos
-    var contenedor       = $("#contenedor"); //ID del contenedor
-    var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
-
-    //var x = número de campos existentes en el contenedor
-    var x = $("#contenedor div").length + 1;
-    var FieldCount = x-1; //para el seguimiento de los campos
-
-    $(AddButton).click(function (e) {
-        if(x <= MaxInputs) //max input box allowed
-        {
-            FieldCount++;
-            //agregar campo
-            $(contenedor).append('<div><input type="text" name="nombre[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Nombre '+ FieldCount +'"/><input type="text" name="cantidad[]" class="form-control" id="campo_'+ FieldCount +'" placeholder="Cantidad '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
-            x++; //text box increment
-
-        }
-
-        return false;
-    });
-
-    $("body").on("click",".eliminar", function(e){ //click en eliminar campo
-        if( x > 1 ) {
-            $(this).parent('div').remove(); //eliminar el campo
-            x--;
-        }
-        return false;
-    });
-});
-
-    </script>
-
 </head>
 
 <body>
     <div class="container">
         <?php include "resources/views/navbar.php"; ?>
+
+        <div>
+            <ul class="pager">
+                <li><a href="ingresos.php">Anterior</a></li>
+            </ul>
+        </div>
 
         <div class="col-md-20 text-center" >
             <h3>Control de Ingresos de Alimentos</h3>
@@ -103,9 +99,34 @@
                 <div class="col-sm-4 ">
                     <div class="panel panel-primary panel-body">
                         <div class="form-group">
-                            <label for="ci">Cédula del Contribuyente</label>
-                            <input id="ci" type="text" name="cedula" class="form-control" placeholder="Cedula" required>
+                            <label for="ci">Contribuyente:</label>
+                            <input id="ci" type="number" name="cedula" class="form-control" placeholder="Numero de Identificación" required autocomplete="off">
                         </div>
+
+                        <button type="button" id="btn-confirmar" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-check" aria-hidden="true"></i> Confirmar</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Contribuyente:</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <div id="mensaje"></div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>      
+                        </div><br><br>
+
                         <div class="form-group">
                             <label for="description">Descripción</label><br>
                             <textarea id="description" class="form-control" name="descripcion" rows="7" placeholder="Descripción de la Donación" ></textarea>
@@ -140,5 +161,36 @@
 
 
 </body>
-    <script src="/assets/js/alimentos.js"></script>
+    <script src="assets/js/alimentos.js"></script>
+
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+
+
+    <script>
+
+           $(document).ready(function(){
+
+
+               $('#btn-confirmar').click(function(){
+                var cedula = $('#ci').val();
+                   $.ajax({
+                       type: 'POST',
+                       url: 'confirmarcedula.php',
+                       data: {cedula},
+                       success: function(mensaje){
+                           $('#mensaje').html(mensaje);
+                       }
+                   })
+               })
+           })
+
+       </script>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>
 <html>

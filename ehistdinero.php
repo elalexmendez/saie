@@ -1,5 +1,10 @@
 <?php
-    require "resources/config.php";
+    session_start();
+    require 'resources/config.php';
+
+    if (isset($_SESSION['usuario'])) {
+        echo "";
+    
 ?>
 
 <!doctype html>
@@ -8,21 +13,33 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Control de Ingresos</title>
+    <title>Consulta Dinero</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="assets/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
 
+     <!-- DataTable -->
+    <link rel="stylesheet" href="assets/css/dataTable.css"/>
+    <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+    <script>
+
+$(document).ready(function() {
+    oTable = $('#example').dataTable({
+
+
+    });
+
+} );
+
+</script>
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
-</head>
 
 <body>
     <div class="container">
@@ -34,57 +51,73 @@
             </ul>
         </div>
 
-        <?php
 
-            /* Abrimos la base de datos */
-              $conx = mysql_connect ("localhost","root","");
-              if (!$conx) die ("Error al abrir la base <br/>". mysql_error());
-              mysql_select_db("saie") OR die("Connection Error to Database");
+        <div class="row col-md-10 col-md-offset-1 custyle">
 
-            /* Realizamos la consulta SQL */
-            $sql="select * from egresos";
-            $result= mysql_query($sql) or die(mysql_error());
-            if(mysql_num_rows($result)==0);
+            <h2 class="col-sm-11">Resultado de Egresos</h2>
 
-            /* Desplegamos cada uno de los registros dentro de una tabla */
-            echo "<table class='table table-striped custab text-center' border=1 cellpadding=4 cellspacing=0>";
+        <table id="example" class="display text-center" cellspacing="0" width="100%">
+        <thead>
+             <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Titulo </th>
+                <th class='text-center'> Responsable </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha </th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th class='text-center'> Codigo </th>
+                <th class='text-center'> Titulo </th>
+                <th class='text-center'> Responsable </th>
+                <th class='text-center'> Cantidad </th>
+                <th class='text-center'> Descripcion </th>
+                <th width='100' class='text-center'> Fecha </th>
+                <th class="text-center">Imprimir</th>
+            </tr>
+        </tfoot>
 
-            /*Priemro los encabezados*/
-             echo "<tr>
-                     <th class='text-center' colspan=6> Datos de Ingresos </th>
+            <?php
 
-                   <tr>
-                     <th class='text-center' > ID </th>
-                     <th class='text-center'> Nombre </th>
-                     <th class='text-center'> Cantidad </th>
-                     <th class='text-center'> Descripcion </th>
-                     <th class='text-center'> Fecha </th>
-                  </tr>";
+                require "resources/config.php";
+                
 
-            /*Y ahora todos los registros */
-            while($row=mysql_fetch_array($result))
-            {
-             echo "<tr>
-                     <td align='right'> $row[id] </td>
-                     <td> $row[nombre] </td>
-                     <td> $row[cantidad] bs. </td>
-                     <td> $row[descripcion] </td>
-                     <td> $row[fecha] </td>
-                  </tr>";
-            }
-            echo "</table>";
+                    /* Realizamos la consulta SQL */
+                    $sql ="SELECT *, egresos.id as id_egreso, egresos_dinero.id as id_dinero 
+                    FROM egresos JOIN egresos_dinero ON egresos_dinero.egreso_id = egresos.id";
+                    $result = mysql_query($sql);
 
-        ?>
+                        if(mysql_num_rows($result)==0);
 
-</div>
+                             /*Y ahora todos los registros */
+                             while($row=mysql_fetch_array($result))
+                                {
+                             echo "<tr>
+                                 <td class='text-center'> $row[id_dinero] </td>
+                                 <td class='text-center'> $row[titulo] </td>
+                                 <td class='text-center'> $row[nombre] </td>
+                                 <td class='text-center'> $row[cantidad_dinero] Bs. </td>
+                                 <td width='400' class='text-center'> $row[descripcion] </td>
+                                 <td class='text-center'> $row[datatime] </td>
+                                 <td><a href='#'><span title='Imprimir' class='fa fa-print btn btn-primary btn-xs'></span></a>
+
+                    </td>
+                                 </tr>";
+                             }
+                            echo "</table><br><br><br><br>";
+            ?>
+        </div>
 
     </div>
 
     <?php include "resources/views/footer.php"; ?>
-
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-
-
 </body>
+
+<?php
+    }else{
+        echo '<script> window.location="login.php"; </script>';
+    }
+?>

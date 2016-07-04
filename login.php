@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'ser.php';
+    require 'resources/config.php';
     if (isset($_SESSION['user'])) {
     echo '<script> window.location="index.php";</script>';
     }
@@ -22,29 +22,43 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/login2.css">
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
-
-    <div class="container">
-
-        <form class="form-signin" method="POST" action="validar.php">
-            <h2 class="form-signin-heading">Inicie Sesión</h2>
-            <label class="sr-only">Nombre de Usuario</label>
-            <input type="text" id="inputEmail" class="form-control text-center" name="user" placeholder="Nombre de Usuario" required autocomplete="off">
-            <label class="sr-only">Contraseña</label>
-            <input type="password" id="inputPassword" class="form-control text-center" name="pass" placeholder="Contraseña" required autocomplete="off">
-            <button class="btn btn-lg btn-default btn-block" name="login" type="submit">Acceder</button>
-        </form>
-        
-
-    </div>
     <!-- /container -->
 
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <br><br><br><br><br><br><br>
+    <div class="container">
+    <div class="row vertical-offset-100">
+        <div class="col-md-3 col-md-offset-9">
+            <div class="panel panel-default login">
+                <div class="panel-heading">                            
+                    <div class="row-fluid user-row">
+                        <i class="fa fa-eye fa-3x"></i> 
+                    </div>
+                    <h3 class="panel-title user-row"> SAIE Aranzazu</h3> 
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                          <label>Sistema Administrativo</label>
+                          <hr>
+                    </div>
+                    <form role="form" name="login" method="POST" action="validar.php">
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Nombre de Usuario" name="user" type="text" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Contraseña" name="pass" type="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn pull-right">Iniciar</button>
+                    </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 </body>
 
